@@ -21,8 +21,9 @@ class Home extends Component {
     }
 
     async componentDidMount() {
-        // const response = await fetch('/api/user', {credentials: 'include'});
-        // const body = await response.text();
+        const response = await fetch('https://likeminded-server.herokuapp.com/api/v1/events', {credentials: 'include'});
+        const body = await response.text();
+        console.log(JSON.parse(body));
         // if (body === '') {
         //     this.setState(({isAuthenticated: false}))
         // } else {
