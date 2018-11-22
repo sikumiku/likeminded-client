@@ -1,28 +1,25 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Home from './Home';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import EventList from './EventList';
+import EventEdit from './EventEdit';
+import { CookiesProvider } from 'react-cookie';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <CookiesProvider>
+            <Router>
+            <Switch>
+            <Route path='/' exact={true} render={Home.render}/>
+        <Route path='/events' exact={true} render={EventList.render}/>
+        <Route path='/events/:id' render={EventEdit.render}/>
+        </Switch>
+        </Router>
+        </CookiesProvider>
+    )
+    }
 }
 
 export default App;
