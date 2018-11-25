@@ -53,3 +53,10 @@
   font-weight: bold;
   font-family: "Trebuchet MS";
 }
+
+.home-heading {
+  margin-top: 1.5rem !important;
+  font-family: "Trebuchet MS";
+  font-size: 30px;
+  color: #9c3159;
+}
