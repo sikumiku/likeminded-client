@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import logo from '../resources/LIKEMINDED_HEADING_LOGOV3.png';
+import navbarItemDivider from '../resources/pinkcircle2.svg';
 
 export default class AppNavbar extends Component {
     constructor(props) {
@@ -24,20 +25,19 @@ export default class AppNavbar extends Component {
             <Collapse isOpen={this.state.isOpen} navbar>
                 <Nav className="ml-auto" navbar>
                     <NavItem>
-                        <NavLink
-                            href="http://localhost:3000"><span id="navbar-link">ESILEHT</span></NavLink>
+                        <NavLink tag={Link} to="/events"><span id="navbar-link">ÜRITUSED</span></NavLink>
                     </NavItem>
+                    <img src={navbarItemDivider} />
                     <NavItem>
-                        <NavLink tag={Link} to="/events">Üritused </NavLink>
+                        <NavLink href="http://localhost:3000"><span id="navbar-link">GRUPID</span></NavLink>
                     </NavItem>
+                    <img src={navbarItemDivider} />
                     <NavItem>
-                        <NavLink href="http://localhost:3000">Grupid </NavLink>
+                        <NavLink href="http://localhost:3000"><span id="navbar-link">LEIA INIMESI</span></NavLink>
                     </NavItem>
+                    <img src={navbarItemDivider} />
                     <NavItem>
-                        <NavLink href="http://localhost:3000">Leia inimesi </NavLink>
-                    </NavItem>
-                    <NavItem>
-                        <NavLink href="http://localhost:3000">Sisene </NavLink>
+                        <NavLink href="http://localhost:3000"><span id="navbar-link">SISENE</span></NavLink>
                     </NavItem>
                 </Nav>
             </Collapse>

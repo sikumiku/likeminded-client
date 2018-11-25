@@ -48,7 +48,8 @@
 
 #navbar-link {
   font-size: 20px;
+  /*padding-right: 10px;*/
   color: #9c3159;
   font-weight: bold;
-  font-family: HARGENA;
+  font-family: "Trebuchet MS";
 }
