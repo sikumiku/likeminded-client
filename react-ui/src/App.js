@@ -14,7 +14,7 @@ class App extends Component {
                     <Switch>
                         <Route path='/' exact={true} render={Home.render}/>
                         <Route path='/events' exact={true} render={EventList.render}/>
-                        <Route path='/events/:id' render={EventEdit.render}/>
+                        <Route path='/events/:id' exact={true}  render={EventEdit.render}/>
                     </Switch>
                 </Router>
             /* </CookiesProvider>*/

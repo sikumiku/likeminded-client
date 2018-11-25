@@ -45,3 +45,10 @@
 .navbar .navbar-brand {
   color: #9c3159;
 }
+
+#navbar-link {
+  font-size: 20px;
+  color: #9c3159;
+  font-weight: bold;
+  font-family: HARGENA;
+}
