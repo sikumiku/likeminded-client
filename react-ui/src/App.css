@@ -1,4 +1,5 @@
 .App {
+  background-color: #eaded8;
   text-align: center;
 }
 
@@ -23,7 +24,7 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color: #9c3159;
 }
 
 @keyframes App-logo-spin {
@@ -33,4 +34,14 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* navbar */
+.navbar {
+  background-color: #e5bfb0;
+  border-color: #e5bfb0;
+}
+/* Title */
+.navbar .navbar-brand {
+  color: #9c3159;
 }

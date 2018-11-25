@@ -8,7 +8,6 @@ export default class AppNavbar extends Component {
         this.state = {isOpen: false};
         this.toggle = this.toggle.bind(this);
     }
-
     toggle() {
         this.setState({
             isOpen: !this.state.isOpen
@@ -16,7 +15,7 @@ export default class AppNavbar extends Component {
     }
 
     render() {
-        return <Navbar color="dark" dark expand="md">
+        return <Navbar expand="md">
             <NavbarBrand tag={Link} to="/">Home</NavbarBrand>
             <NavbarToggler onClick={this.toggle}/>
             <Collapse isOpen={this.state.isOpen} navbar>
@@ -26,7 +25,16 @@ export default class AppNavbar extends Component {
                             href="http://localhost:3000">Esileht</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="http://localhost:3000">Üritused </NavLink>
+                        <NavLink tag={Link} to="/events">Üritused </NavLink>
+                    </NavItem>
+                    <NavItem>
+                        <NavLink href="http://localhost:3000">Grupid </NavLink>
+                    </NavItem>
+                    <NavItem>
+                        <NavLink href="http://localhost:3000">Leia inimesi </NavLink>
+                    </NavItem>
+                    <NavItem>
+                        <NavLink href="http://localhost:3000">Sisene </NavLink>
                     </NavItem>
                 </Nav>
             </Collapse>

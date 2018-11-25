@@ -31,9 +31,11 @@ class EventEdit extends Component {
     async componentDidMount() {
         if (this.props.match.params.id !== 'new') {
             try {
-                const event = await (await fetch(`/api/v1/group/${this.props.match.params.id}`, {credentials: 'include'})).json();
+                // const event = await (await fetch(`/api/v1/group/${this.props.match.params.id}`, {credentials: 'include'})).json();
+                const event = await (await fetch(`https://likeminded-server.herokuapp.com/api/v1/event/${this.props.match.params.id}`)).json();
                 this.setState({item: event});
             } catch (error) {
+                // this forces customer to be routed back to another page (login for example)
                 this.props.history.push('/');
             }
         }
@@ -59,8 +61,8 @@ class EventEdit extends Component {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(item),
-            credentials: 'include'
+            body: JSON.stringify(item)
+            // credentials: 'include'
         });
         this.props.history.push('/events');
     }

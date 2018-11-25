@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import '../App.css';
 import AppNavbar from './AppNavbar';
 import { Link } from 'react-router-dom';
 import { Button, Container } from 'reactstrap';
@@ -21,9 +21,9 @@ class Home extends Component {
     }
 
     async componentDidMount() {
-        const response = await fetch('https://likeminded-server.herokuapp.com/api/v1/events');
-        const body = await response.text();
-        console.log(JSON.parse(body));
+        // const response = await fetch('http://localhost:8080/api/v1/events');
+        // const body = await response.text();
+        // console.log(JSON.parse(body));
         // if (body === '') {
         //     this.setState(({isAuthenticated: false}))
         // } else {
@@ -51,7 +51,7 @@ class Home extends Component {
     render() {
         const message = this.state.user ?
             <h2>Welcome, {this.state.user.username}!</h2> :
-            <p>Please log in to manage your JUG Tour.</p>;
+            <p>Palun sisenege, et lisada uusi üritusi.</p>;
 
         const button = this.state.isAuthenticated ?
             <div>
