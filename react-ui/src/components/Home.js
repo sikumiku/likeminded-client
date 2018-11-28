@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 import { Button, Container } from 'reactstrap';
 import { withCookies } from 'react-cookie';
 import people_image from '../resources/home-page-people.png';
-import heading_image from '../resources/LIKEMINDED_HEADING.png';
-import lorien_reklaam from '../resources/lorien_reklaam.png';
+import logo_and_slogan from '../resources/LogoandSlogan.png';
 import blog_spirit_island from '../resources/spiritisland.png';
+import BodyBackgroundColor from 'react-body-backgroundcolor';
 
 class Home extends Component {
     state = {
@@ -66,12 +66,13 @@ class Home extends Component {
             <Button color="primary" onClick={this.login}>Login</Button>;
 
         return (
+            <BodyBackgroundColor backgroundColor='#eee2dc'>
             <div>
                 <AppNavbar/>
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-3">
-                            <h1 class="home-heading">Tere tulemast!</h1>
+                            <h1 class="my-4" color="#9c3159">Tere tulemast!</h1>
                             <img src={people_image} width="254" />
                             <p/>
                             <div>
@@ -83,6 +84,8 @@ class Home extends Component {
                             </div>
                         </div>
                         <div class="col-lg-9">
+
+                                <img class="img-fluid" src={logo_and_slogan}/>
 
                             <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
                                 <ol class="carousel-indicators">
@@ -227,6 +230,7 @@ class Home extends Component {
                     </div>
                 </div>
             </div>
+            </BodyBackgroundColor>
         );
     }
 }

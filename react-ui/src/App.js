@@ -2,13 +2,14 @@ import React, {Component} from 'react';
 import './App.css';
 import Home from './components/Home';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import EventList from './components/EventList';
+import EventList from './components/EventHub';
 import EventEdit from './components/EventEdit';
 import {CookiesProvider} from 'react-cookie';
 
 class App extends Component {
     render() {
         return (
+
             /*<CookiesProvider>*/
                 <Router>
                     <Switch>
@@ -18,6 +19,7 @@ class App extends Component {
                     </Switch>
                 </Router>
             /* </CookiesProvider>*/
+
         )
     }
 }

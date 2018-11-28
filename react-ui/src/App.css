@@ -1,5 +1,5 @@
 .App {
-  background-color: #eaded8;
+  background-color: #eee2dc;
   text-align: center;
 }
 
@@ -54,9 +54,72 @@
   font-family: "Trebuchet MS";
 }
 
-.home-heading {
+.my-4 {
   margin-top: 1.5rem !important;
-  font-family: "Trebuchet MS";
-  font-size: 30px;
   color: #9c3159;
+  font-size: 35px;
+}
+
+.groupitem {
+  color: white;
+  background-color: #163f6a !important;
+}
+
+.groupitem:hover {
+  color: white;
+  text-decoration: none;
+}
+
+#panel-body {
+  background-color: transparent;
+  text-align: left;
+}
+
+a.panel-link {
+  color: #163f6a;
+}
+
+a.panel-link:hover {
+  color: white;
+  text-decoration: none;
+}
+
+a.panel-body:hover {
+  background-color: transparent;
+  color: #163f6a;
+}
+
+#panel-body:hover {
+  background-color: transparent;
+}
+
+#panel-heading {
+  background-color: #163f6a !important;
+}
+
+a.panel-heading {
+  color: white;
+  text-decoration: none;
+}
+
+a.panel-heading:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.event-button-right {
+  position: absolute;
+  bottom: 0;
+  right: 7%;
+}
+
+a.menu-link {
+  color: #9c3159;
+  font-size: 25px;
+}
+
+a.menu-link:hover {
+  color: white;
+  font-size: 25px;
+  text-decoration: none;
 }
