@@ -87,19 +87,35 @@ class EventList extends Component {
                 postcode = address.postCode;
                 countryCode = address.countryCode;
             }
-            return <tr key={event.id}>
-                <td style={{whiteSpace: 'nowrap'}}>{event.name}</td>
-                <td>{event.description}</td>
-                <td>
-                    <div>{addressLine} {city} {postcode} {countryCode}</div>
-                </td>
-                <td>
-                    <ButtonGroup>
-                        <Button size="sm" color="primary" tag={Link} to={"/events/" + event.id}>Muuda</Button>
-                        <Button size="sm" color="danger" onClick={() => this.remove(event.id)}>Kustuta</Button>
-                    </ButtonGroup>
-                </td>
-            </tr>
+            return <p> <div class="card">
+                <h4 id="panel-heading" class="card-header">
+                    <a class="panel-heading" href="#">{event.name}</a>
+                </h4>
+                <div id="panel-body" class="card-body">
+                    <div class="row">
+                        <div class="col col-lg-2">
+                            <img class="card-img-top" src={blog_spirit_island} alt=""/>
+                        </div>
+                        <div class="col">
+                            <p class="card-text">Kirjeldus: {event.description}</p>
+                            <p class="card-text">Aadress: {addressLine} {city} {postcode} {countryCode}</p>
+                        </div>
+                        <div class="col col-lg-3">
+                            <p class="card-text text-right" >Event time and date</p>
+
+                            <div class="event-button-right">
+                                <Button>
+                                    OSALE
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734; Game category thumbnails</small>
+                </div>
+            </div>
+            </p>
         });
 
         return (
@@ -129,96 +145,7 @@ class EventList extends Component {
                                 <div class="row">
 
                                     <div class="col-lg-12 col-md-6 mb-4">
-                                        <div class="card">
-                                            <h4 id="panel-heading" class="card-header">
-                                                <a class="panel-heading" href="#">Event name</a>
-                                            </h4>
-                                            <div id="panel-body" class="card-body">
-                                                <div class="row">
-                                                    <div class="col col-lg-2">
-                                                        <img class="card-img-top" src={blog_spirit_island} alt=""/>
-                                                    </div>
-                                                    <div class="col">
-                                                        <p class="card-text">Event location</p>
-                                                        <p class="card-text">Free spots at event</p>
-                                                    </div>
-                                                    <div class="col col-lg-3">
-                                                        <p class="card-text text-right" >Event time and date</p>
-
-                                                        <div class="event-button-right">
-                                                            <Button>
-                                                                OSALE
-                                                            </Button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="card-footer">
-                                                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734; Game category thumbnails</small>
-                                            </div>
-                                        </div>
-
-                                        <p></p>
-
-                                        <div class="card">
-                                            <h4 id="panel-heading" class="card-header">
-                                                <a class="panel-heading" href="#">Event name</a>
-                                            </h4>
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col col-lg-2">
-                                                        <img class="card-img-top" src={blog_spirit_island} alt=""/>
-                                                    </div>
-                                                    <div class="col">
-                                                        <p class="card-text">Event location</p>
-                                                        <p class="card-text">Free spots at event</p>
-                                                    </div>
-                                                    <div class="col col-lg-3">
-                                                        <p class="card-text text-right" >Event time and date</p>
-
-                                                        <div class="event-button-right">
-                                                            <Button>
-                                                                OSALE
-                                                            </Button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="card-footer">
-                                                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734; Game category thumbnails</small>
-                                            </div>
-                                        </div>
-
-                                        <p></p>
-
-                                        <div class="card">
-                                            <h4 id="panel-heading" class="card-header">
-                                                <a class="panel-heading" href="#">Event name</a>
-                                            </h4>
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col col-lg-2">
-                                                        <img class="card-img-top" src={blog_spirit_island} alt=""/>
-                                                    </div>
-                                                    <div class="col">
-                                                        <p class="card-text">Event location</p>
-                                                        <p class="card-text">Free spots at event</p>
-                                                    </div>
-                                                    <div class="col col-lg-3">
-                                                        <p class="card-text text-right" >Event time and date</p>
-
-                                                        <div class="event-button-right">
-                                                            <Button>
-                                                                OSALE
-                                                            </Button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="card-footer">
-                                                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734; Game category thumbnails</small>
-                                            </div>
-                                        </div>
+                                        {eventList}
                                     </div>
                                 </div>
                             </div>
