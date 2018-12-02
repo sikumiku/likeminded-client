@@ -4,24 +4,24 @@ self.__precacheManifest = [
     "url": "/static/media/spiritisland.1b1a8f33.png"
   },
   {
-    "revision": "b35473611a2eef3b11fb",
-    "url": "/static/css/main.557d947d.chunk.css"
+    "revision": "cf8606179ff3b82d4caa",
+    "url": "/static/css/main.933ed56f.chunk.css"
   },
   {
     "revision": "c5495f04704c7c5ead482ee26bd7183c",
     "url": "/static/media/LogoandSlogan.c5495f04.png"
   },
   {
-    "revision": "5c38213ac4c4c5a30010",
-    "url": "/static/js/1.5c38213a.chunk.js"
+    "revision": "9de5b33f04113fda550d",
+    "url": "/static/js/1.9de5b33f.chunk.js"
   },
   {
     "revision": "229c360febb4351a89df",
     "url": "/static/js/runtime~main.229c360f.js"
   },
   {
-    "revision": "b35473611a2eef3b11fb",
-    "url": "/static/js/main.b3547361.chunk.js"
+    "revision": "cf8606179ff3b82d4caa",
+    "url": "/static/js/main.cf860617.chunk.js"
   },
   {
     "revision": "c282eb57f14d5afa4b34ab7636f9833e",
@@ -36,11 +36,11 @@ self.__precacheManifest = [
     "url": "/static/media/home-page-people.dc7c90bb.png"
   },
   {
-    "revision": "5c38213ac4c4c5a30010",
-    "url": "/static/css/1.7a6e4b26.chunk.css"
+    "revision": "9de5b33f04113fda550d",
+    "url": "/static/css/1.29216508.chunk.css"
   },
   {
-    "revision": "84b35de91cf2555edd2f5e49256ffc93",
+    "revision": "dbee080c72b49197fa2a5894145f2868",
     "url": "/index.html"
   }
 ];
