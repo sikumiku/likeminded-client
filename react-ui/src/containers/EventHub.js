@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {Button, ButtonGroup, Container, Table} from 'reactstrap';
-import AppNavbar from './AppNavbar';
-import {Link, withRouter} from 'react-router-dom';
+import {Button} from 'reactstrap';
+import {withRouter} from 'react-router-dom';
 import {instanceOf} from 'prop-types';
 import {withCookies, Cookies} from 'react-cookie';
 import ListGroup from "react-bootstrap/es/ListGroup";
@@ -39,28 +38,24 @@ class EventList extends Component {
     componentDidMount() {
         this.setState({isLoading: true});
 
-        console.log("Trying to fetch data about events, csrfToken: " + this.state.csrfToken);
         fetch('https://likeminded-server.herokuapp.com/api/v1/events')
             .then(response => response.json())
             .then(data => this.setState({events: data, isLoading: false}));
 
-        console.log(this.state.events);
-        this.setState(this.state.selectedOption = {option: 'Kõik kategooriad'})
+        this.setState({selectedOption : {option: 'Kõik kategooriad'}})
     }
 
     onOptionClick = (option) => {
         this.setState({ selectedOption: option })
-    }
+    };
 
     async remove(id) {
         await fetch(`https://likeminded-server.herokuapp.com/api/v1/event/${id}`, {
             method: 'DELETE',
             headers: {
-                // 'X-XSRF-TOKEN': this.state.csrfToken,
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
-            // credentials: 'include'
         }).then(() => {
             let updatedEvents = [...this.state.events].filter(i => i.id !== id);
             this.setState({events: updatedEvents});
@@ -69,10 +64,6 @@ class EventList extends Component {
 
     render() {
         const {events, isLoading, options, selectedOption} = this.state;
-
-        if (isLoading) {
-            return <p>Loading...</p>;
-        }
 
         const eventList = events.map(event => {
             const address = event.address;
@@ -87,23 +78,24 @@ class EventList extends Component {
                 postcode = address.postCode;
                 countryCode = address.countryCode;
             }
-            return <p> <div class="card">
-                <h4 id="panel-heading" class="card-header">
-                    <a class="panel-heading" href="#">{event.name}</a>
+            return <p key={event.toString()}>
+                <div className="card">
+                <h4 id="panel-heading" className="card-header">
+                    <a className="panel-heading" href="#">{event.name}</a>
                 </h4>
-                <div id="panel-body" class="card-body">
-                    <div class="row">
-                        <div class="col col-lg-2">
-                            <img class="card-img-top" src={blog_spirit_island} alt=""/>
+                <div id="panel-body" className="card-body">
+                    <div className="row">
+                        <div className="col col-lg-2">
+                            <img className="card-img-top" src={blog_spirit_island} alt=""/>
                         </div>
-                        <div class="col">
-                            <p class="card-text">Kirjeldus: {event.description}</p>
-                            <p class="card-text">Aadress: {addressLine} {city} {postcode} {countryCode}</p>
+                        <div className="col">
+                            <p className="card-text">Kirjeldus: {event.description}</p>
+                            <p className="card-text">Aadress: {addressLine} {city} {postcode} {countryCode}</p>
                         </div>
-                        <div class="col col-lg-3">
-                            <p class="card-text text-right" >Event time and date</p>
+                        <div className="col col-lg-3">
+                            <p className="card-text text-right" >Event time and date</p>
 
-                            <div class="event-button-right">
+                            <div className="event-button-right">
                                 <Button>
                                     OSALE
                                 </Button>
@@ -111,8 +103,8 @@ class EventList extends Component {
                         </div>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734; Game category thumbnails</small>
+                <div className="card-footer">
+                    <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734; Game category thumbnails</small>
                 </div>
             </div>
             </p>
@@ -121,31 +113,29 @@ class EventList extends Component {
         return (
             <BodyBackgroundColor backgroundColor='#eee2dc'>
                 <div>
-                    <AppNavbar/>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-3">
-                                <h1 class="my-4" color="#9c3159">ÜRITUSED</h1>
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-lg-3">
+                                <h1 className="my-4" color="#9c3159">ÜRITUSED</h1>
                                 <p/>
-                                <h3 class="my-3"><a class="menu-link" href="#">Loo üritus &gt;</a></h3>
+                                <h3 className="my-3"><a className="menu-link" href="#">Loo üritus &gt;</a></h3>
                                 <p/>
                                 <ListGroup>
                                     {options.map((option) => (
                                         <ListGroupItem id="panel-body"
                                             className={option.option==selectedOption.option?"groupitem":""}
                                             onClick={(e) => this.onOptionClick(option)}>
-                                            {console.log("option is " + option.option + " and selecteoption is " + selectedOption.option)}
-                                            <a href="#" class={option.option==selectedOption.option?"groupitem":"panel-link"}>{option.option}</a>
+                                            <a href="#" className={option.option==selectedOption.option?"groupitem":"panel-link"}>{option.option}</a>
                                         </ListGroupItem>
                                     ))}
                                 </ListGroup>
                             </div>
-                            <div class="col-lg-9">
+                            <div className="col-lg-9">
 
-                                <div class="row">
+                                <div className="row">
 
-                                    <div class="col-lg-12 col-md-6 mb-4">
-                                        {eventList}
+                                    <div className="col-lg-12 col-md-6 mb-4">
+                                        {isLoading?<p>Loading...</p>:(!events.length?<p>No events to show.</p>:eventList)}
                                     </div>
                                 </div>
                             </div>
@@ -156,5 +146,4 @@ class EventList extends Component {
          );
     }
 }
-// export default withCookies(withRouter(EventList));
 export default withCookies(withRouter(EventList));
