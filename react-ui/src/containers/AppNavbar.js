@@ -7,7 +7,9 @@ import navbarItemDivider from '../resources/pinkcircle2.svg';
 export default class AppNavbar extends Component {
     constructor(props) {
         super(props);
-        this.state = {isOpen: false};
+        this.state = {
+            isOpen: false
+        };
         this.toggle = this.toggle.bind(this);
     }
     toggle() {
@@ -16,10 +18,15 @@ export default class AppNavbar extends Component {
         });
     }
 
+    handleLogout = (e) => {
+        this.props.onLogOut();
+    };
+
     render() {
+
         return <Navbar expand="md">
             <NavbarBrand tag={Link} to="/">
-                <img src={logo} height="50" />
+                <img src={logo} height="50" alt="LikeMinded logo" />
             </NavbarBrand>
             <NavbarToggler onClick={this.toggle}/>
             <Collapse isOpen={this.state.isOpen} navbar>
@@ -27,18 +34,23 @@ export default class AppNavbar extends Component {
                     <NavItem>
                         <NavLink tag={Link} to="/events"><span id="navbar-link">ÜRITUSED</span></NavLink>
                     </NavItem>
-                    <img src={navbarItemDivider} />
+                    <img src={navbarItemDivider} alt="Navbar divider" />
                     <NavItem>
                         <NavLink href="http://localhost:3000"><span id="navbar-link">GRUPID</span></NavLink>
                     </NavItem>
-                    <img src={navbarItemDivider} />
+                    <img src={navbarItemDivider} alt="Navbar divider" />
                     <NavItem>
                         <NavLink href="http://localhost:3000"><span id="navbar-link">LEIA INIMESI</span></NavLink>
                     </NavItem>
-                    <img src={navbarItemDivider} />
-                    <NavItem>
-                        <NavLink href="http://localhost:3000"><span id="navbar-link">SISENE</span></NavLink>
-                    </NavItem>
+                    {this.props.isAuthenticated
+                        ? <NavItem>
+                            <NavLink href="#" onClick={this.handleLogout}><span id="navbar-link">LOGI VÄLJA</span></NavLink>
+                        </NavItem>
+                        :
+                        <NavItem>
+                            <NavLink tag={Link} to="/login"><span id="navbar-link">SISENE</span></NavLink>
+                        </NavItem>
+                    }
                 </Nav>
             </Collapse>
         </Navbar>;
