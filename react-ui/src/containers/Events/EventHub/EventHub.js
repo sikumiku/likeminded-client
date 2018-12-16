@@ -3,12 +3,7 @@ import {Button} from 'reactstrap';
 import {withRouter} from 'react-router-dom';
 import {instanceOf} from 'prop-types';
 import {withCookies, Cookies} from 'react-cookie';
-import ListGroup from "react-bootstrap/es/ListGroup";
-import ListGroupItem from "react-bootstrap/es/ListGroupItem";
-import blog_spirit_island from '../../../resources/spiritisland.png';
 import BodyBackgroundColor from 'react-body-backgroundcolor';
-import NavLink from "react-router-dom/es/NavLink";
-import Link from "react-router-dom/es/Link";
 import {getEvents} from "../../../apiUtil/baseApi";
 import EventMenu from '../../../components/Events/EventMenu/EventMenu';
 import EventList from '../../../components/Events/EventList/EventList';
@@ -42,6 +37,10 @@ class EventHub extends Component {
         this.remove = this.remove.bind(this);
     }
 
+    componentWillMount() {
+        this.setState({selectedOption : {option: 'ALL', title: 'Kõik kategooriad'}})
+    }
+
     componentDidMount() {
         this.setState({isLoading: true});
 
@@ -50,8 +49,6 @@ class EventHub extends Component {
                 this.setState({events: data, isLoading: false, cachedEvents: data});
                 console.log(data)
             });
-
-        this.setState({selectedOption : {option: 'Kõik kategooriad'}})
     }
 
     onOptionClick = (optionObject) => {
