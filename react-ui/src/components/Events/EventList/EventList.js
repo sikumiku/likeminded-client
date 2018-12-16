@@ -12,11 +12,45 @@ const eventList = (props) => {
         let postcode = "";
         let countryCode = "";
 
+        const fullCategories = [
+            {
+                name: "BOARDGAMES",
+                description: "Lauamängud"
+            },
+            {
+                name: "CARDGAMES",
+                description: "Kaardimängud"
+            },
+            {
+                name: "CLASSICAL",
+                description: "Klassikalised mängud"
+            },
+            {
+                name: "DICEGAMES",
+                description: "Täringumängud"
+            },
+            {
+                name: "MINIATURES",
+                description: "Miniatuurimängud"
+            },
+            {
+                name: "ROLEPLAYING",
+                description: "Rollimängud"
+            },
+            {
+                name: "TILEGAMES",
+                description: "'Tile' mängud"
+            }
+        ];
+        let categoryList = fullCategories.map(cat => {
+            return <img style={{left: "0px", width: '35px', height: '35px', margin: "0px 5px 0px 5px"}} src={window.location.origin + '/img/' + cat.name + '.svg'} alt={cat.description}/>
+        });
+
         const categories = event.categories;
-        const categoryList = categories.length?categories.map(category => {
+        categoryList = categories.length?categories.map(category => {
             let categoryName=category.name;
             return <img style={{left: "0px", width: '35px', height: '35px', margin: "0px 5px 0px 5px"}} src={window.location.origin + '/img/' + categoryName + '.svg'} alt={category.description}/>;
-        }):null;
+        }):categoryList;
 
         // if (address !== null) {
         //     addressLine = address.addressLine;
