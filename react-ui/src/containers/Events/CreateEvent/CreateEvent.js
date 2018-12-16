@@ -1,25 +1,27 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { instanceOf } from 'prop-types';
-import { Cookies, withCookies } from 'react-cookie';
-import { Progress } from 'reactstrap';
+import { withRouter } from 'react-router-dom';
 import BodyBackgroundColor from 'react-body-backgroundcolor';
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import EventCreationTracker from '../../../components/Events/EventCreationTracker/EventCreationTracker'
+import { Button } from "react-bootstrap";
+import EventCreationDetails from '../../../components/Events/EventCreationFlow/EventCreationDetails/EventCreationDetails';
+import EventCreationPicture from '../../../components/Events/EventCreationFlow/EventCreationPicture/EventCreationPicture';
+import EventCreationConfirmation from '../../../components/Events/EventCreationFlow/EventCreationConfirmation/EventCreationConfirmation';
 
 class CreateEvent extends Component {
-    static propTypes = {
-        cookies: instanceOf(Cookies).isRequired
+    state = {
+        event: {
+            name: "An event",
+            description: "Description",
+            openToPublic: true,
+            unlimitedParticipants: true,
+            maxParticipants: 15,
+            categories: ["BOARDGAMES", "DICEGAMES"]
+        },
+        inEventDetails: true,
+        inEventPicture: false,
+        inEventConfirmation: false,
+        currentPage: "eventDetails"
     };
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: '',
-            description: ''
-        };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
 
     handleChange(event) {
         this.setState({
@@ -44,50 +46,41 @@ class CreateEvent extends Component {
     }
 
     validateForm() {
-        return this.state.name.length > 0 && this.state.description.length > 0;
+        // return this.state.name.length > 0 && this.state.description.length > 0;
     }
 
+    triggerNext = (page) => {
+        switch (page) {
+            case "eventDetails":
+                this.setState({inEventDetails: false, inEventPicture: true, inEventConfirmation: false, currentPage: "eventPicture"});
+                break;
+            case "eventPicture":
+                this.setState({inEventPicture: false, inEventConfirmation: true, inEventDetails: false, currentPage: "eventConfirmation"});
+                break;
+            case "eventConfirmation":
+                this.setState({inEventConfirmation: false, inEventDetails: true, inEventPicture: false, currentPage: "eventDetails"});
+                break;
+            default:
+                this.setState({inEventConfirmation: false, inEventPicture: false, inEventDetails: true, currentPage: "eventDetails"});
+        }
+    };
+
     render() {
+
         return <BodyBackgroundColor backgroundColor='#eee2dc'>
             <div className="container">
-                <div className="row justify-content-center">
-                    <div className="col-md-8">
-                        <div className="text-center">1 of 5</div>
-                        <Progress value="1" max="5" />
+                <div className="row">
+                    <EventCreationTracker activePage={this.state.currentPage}/>
+                    <div className="col-lg-9">
+                        <div className="row">
+                            <div className="col-lg-12 col-md-6 mb-4">
+                                <EventCreationDetails activePage={this.state.currentPage} onClick={this.triggerNext} hidden={!this.state.inEventDetails}/>
+                                <EventCreationPicture activePage={this.state.currentPage} onClick={this.triggerNext} hidden={!this.state.inEventPicture}/>
+                                <EventCreationConfirmation activePage={this.state.currentPage} onClick={this.triggerNext} hidden={!this.state.inEventConfirmation}/>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div className="row justify-content-center">
-                    <div className="col-md-8">
-                        <form onSubmit={this.handleSubmit}>
-                            <FormGroup controlId="name" bsSize="large">
-                                <ControlLabel>Nimi</ControlLabel>
-                                <FormControl
-                                    autoFocus
-                                    value={this.state.name}
-                                    onChange={this.handleChange}
-                                    type="name"
-                                />
-                            </FormGroup>
-                            <FormGroup controlId="description" bsSize="large">
-                                <ControlLabel>Kirjeldus</ControlLabel>
-                                <FormControl
-                                    value={this.state.description}
-                                    onChange={this.handleChange}
-                                    type="description"
-                                />
-                            </FormGroup>
-                            <Button
-                                block
-                                bsSize="large"
-                                disabled={!this.validateForm()}
-                                type="submit"
-                            >
-                                Next
-                            </Button>
-                        </form>
-                    </div>
-                </div>
-
             </div>
         </BodyBackgroundColor>
     }
