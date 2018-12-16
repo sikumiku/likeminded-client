@@ -5,10 +5,12 @@ import {instanceOf} from 'prop-types';
 import {withCookies, Cookies} from 'react-cookie';
 import ListGroup from "react-bootstrap/es/ListGroup";
 import ListGroupItem from "react-bootstrap/es/ListGroupItem";
-import blog_spirit_island from '../resources/spiritisland.png';
+import blog_spirit_island from '../../../resources/spiritisland.png';
 import BodyBackgroundColor from 'react-body-backgroundcolor';
+import NavLink from "react-router-dom/es/NavLink";
+import Link from "react-router-dom/es/Link";
 
-class EventList extends Component {
+class EventHub extends Component {
     static propTypes = {
         cookies: instanceOf(Cookies).isRequired
     };
@@ -20,6 +22,7 @@ class EventList extends Component {
             events: [],
             csrfToken: cookies.get('XSRF-TOKEN'),
             isLoading: true,
+            progress: 50,
             options: [
                 {option: 'Kõik kategooriad'},
                 {option: 'Lauamängud'},
@@ -38,9 +41,12 @@ class EventList extends Component {
     componentDidMount() {
         this.setState({isLoading: true});
 
-        fetch('https://likeminded-server.herokuapp.com/api/v1/events')
+        fetch('http://localhost:8080/api/v1/events')
             .then(response => response.json())
-            .then(data => this.setState({events: data, isLoading: false}));
+            .then(data => {
+                this.setState({events: data, isLoading: false});
+                console.log(data)
+            });
 
         this.setState({selectedOption : {option: 'Kõik kategooriad'}})
     }
@@ -50,7 +56,7 @@ class EventList extends Component {
     };
 
     async remove(id) {
-        await fetch(`https://likeminded-server.herokuapp.com/api/v1/event/${id}`, {
+        await fetch(`http://localhost:8080/api/v1/event/${id}`, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
@@ -66,47 +72,47 @@ class EventList extends Component {
         const {events, isLoading, options, selectedOption} = this.state;
 
         const eventList = events.map(event => {
-            const address = event.address;
+            // const address = event.address;
             let addressLine = "";
             let city = "";
             let postcode = "";
             let countryCode = "";
 
-            if (address !== null) {
-                addressLine = address.addressLine;
-                city = address.city;
-                postcode = address.postCode;
-                countryCode = address.countryCode;
-            }
+            // if (address !== null) {
+            //     addressLine = address.addressLine;
+            //     city = address.city;
+            //     postcode = address.postCode;
+            //     countryCode = address.countryCode;
+            // }
             return <p key={event.toString()}>
                 <div className="card">
-                <h4 id="panel-heading" className="card-header">
-                    <a className="panel-heading" href="#">{event.name}</a>
-                </h4>
-                <div id="panel-body" className="card-body">
-                    <div className="row">
-                        <div className="col col-lg-2">
-                            <img className="card-img-top" src={blog_spirit_island} alt=""/>
-                        </div>
-                        <div className="col">
-                            <p className="card-text">Kirjeldus: {event.description}</p>
-                            <p className="card-text">Aadress: {addressLine} {city} {postcode} {countryCode}</p>
-                        </div>
-                        <div className="col col-lg-3">
-                            <p className="card-text text-right" >Event time and date</p>
+                    <h4 id="panel-heading" className="card-header">
+                        <a className="panel-heading" href="#">{event.name}</a>
+                    </h4>
+                    <div id="panel-body" className="card-body">
+                        <div className="row">
+                            <div className="col col-lg-2">
+                                <img className="card-img-top" src={blog_spirit_island} alt=""/>
+                            </div>
+                            <div className="col">
+                                <p className="card-text">Kirjeldus: {event.description}</p>
+                                <p className="card-text">Aadress: {addressLine} {city} {postcode} {countryCode}</p>
+                            </div>
+                            <div className="col col-lg-3">
+                                <p className="card-text text-right" >Event time and date</p>
 
-                            <div className="event-button-right">
-                                <Button>
-                                    OSALE
-                                </Button>
+                                <div className="event-button-right">
+                                    <Button>
+                                        OSALE
+                                    </Button>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div className="card-footer">
+                        <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734; Game category thumbnails</small>
+                    </div>
                 </div>
-                <div className="card-footer">
-                    <small className="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734; Game category thumbnails</small>
-                </div>
-            </div>
             </p>
         });
 
@@ -118,14 +124,14 @@ class EventList extends Component {
                             <div className="col-lg-3">
                                 <h1 className="my-4" color="#9c3159">ÜRITUSED</h1>
                                 <p/>
-                                <h3 className="my-3"><a className="menu-link" href="#">Loo üritus &gt;</a></h3>
+                                <h3 className="my-3"><NavLink tag={Link} to="/createEvent"><span id="navbar-link">Loo üritus</span></NavLink></h3>
                                 <p/>
                                 <ListGroup>
                                     {options.map((option) => (
                                         <ListGroupItem id="panel-body"
-                                            className={option.option==selectedOption.option?"groupitem":""}
-                                            onClick={(e) => this.onOptionClick(option)}>
-                                            <a href="#" className={option.option==selectedOption.option?"groupitem":"panel-link"}>{option.option}</a>
+                                                       className={option.option===selectedOption.option?"groupitem":""}
+                                                       onClick={(e) => this.onOptionClick(option)}>
+                                            <a href="#" className={option.option===selectedOption.option?"groupitem":"panel-link"}>{option.option}</a>
                                         </ListGroupItem>
                                     ))}
                                 </ListGroup>
@@ -143,7 +149,7 @@ class EventList extends Component {
                     </div>
                 </div>
             </BodyBackgroundColor>
-         );
+        );
     }
 }
-export default withCookies(withRouter(EventList));
+export default withCookies(withRouter(EventHub));

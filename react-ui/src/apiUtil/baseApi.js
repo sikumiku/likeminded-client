@@ -23,6 +23,13 @@ const request = (options) => {
         );
 };
 
+export function getEvents() {
+    return request({
+        url: API_BASE_URL + "/api/v1/events",
+        method: 'GET'
+    });
+}
+
 export function login(loginRequest) {
     return request({
         url: API_BASE_URL + "/api/auth/login",

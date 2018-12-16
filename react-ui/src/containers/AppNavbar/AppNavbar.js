@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import logo from '../resources/LIKEMINDED_HEADING_LOGOV3.png';
-import navbarItemDivider from '../resources/pinkcircle2.svg';
+import logo from '../../resources/LIKEMINDED_HEADING_LOGOV3.png';
+import navbarItemDivider from '../../resources/pinkcircle2.svg';
 
-export default class AppNavbar extends Component {
+class AppNavbar extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -56,3 +56,5 @@ export default class AppNavbar extends Component {
         </Navbar>;
     }
 }
+
+export default AppNavbar;

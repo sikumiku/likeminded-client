@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
-import AppNavbar from './AppNavbar';
+import Navbar from '../../AppNavbar/AppNavbar';
 import { instanceOf } from 'prop-types';
 import { Cookies, withCookies } from 'react-cookie';
 
@@ -72,7 +72,7 @@ class EventEdit extends Component {
         const title = <h2>{item.id ? 'Edit Event' : 'Add Event'}</h2>;
 
         return <div>
-            <AppNavbar/>
+            <Navbar/>
             <Container>
                 {title}
                 <Form onSubmit={this.handleSubmit}>

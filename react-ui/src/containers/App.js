@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import './App.css';
-import {getCurrentUser} from "./apiUtil";
-import {ACCESS_TOKEN} from './constants/index';
-import Routes from "./Routes";
-import AppNavbar from './containers/AppNavbar';
+import {getCurrentUser} from "../apiUtil/index";
+import {ACCESS_TOKEN} from '../constants/index';
+import Routes from "../components/Routes";
+import AppNavbar from './AppNavbar/AppNavbar';
 import {notification} from 'antd';
 import {withRouter} from 'react-router-dom';
 
@@ -18,12 +18,6 @@ class App extends Component {
             isLoading: false,
             onLogOut: null
         };
-
-        notification.config({
-            placement: 'topRight',
-            top: 70,
-            duration: 3,
-        });
     }
 
     loadCurrentUser = () => {
@@ -63,15 +57,10 @@ class App extends Component {
             currentUser: null,
             isAuthenticated: false
         });
-
-        notification[notificationType]({
-            message: 'Polling App',
-            description: description,
-        });
     };
 
     render() {
-        const {currentUser, isAuthenticated, isLoading} = this.state;
+        const {currentUser, isAuthenticated, isLoading, onLogOut} = this.state;
 
         if (isLoading) {
             return <p>Loading...</p>;
