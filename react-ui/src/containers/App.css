@@ -47,12 +47,12 @@
 }
 
 #navbar-link {
-  font-size: 20px;
-  /*padding-right: 10px;*/
-  color: #9c3159;
-  font-weight: bold;
-  font-family: "Trebuchet MS";
-}
+   font-size: 20px;
+   /*padding-right: 10px;*/
+   color: #9c3159;
+   font-weight: bold;
+  font-family: "Trebuchet MS", serif;
+ }
 
 .my-4 {
   margin-top: 1.5rem !important;
@@ -61,17 +61,20 @@
 }
 
 .groupitem {
+  cursor: pointer;
   color: white;
   background-color: #163f6a !important;
 }
 
 .groupitem:hover {
+  cursor: pointer;
   color: white;
   text-decoration: none;
 }
 
 #panel-body {
-  background-color: transparent;
+  cursor:pointer;
+  background-color: #ffffff;
   text-align: left;
 }
 
@@ -80,17 +83,16 @@ a.panel-link {
 }
 
 a.panel-link:hover {
-  color: white;
+  color: #163f6a;
   text-decoration: none;
 }
 
 a.panel-body:hover {
-  background-color: transparent;
   color: #163f6a;
 }
 
 #panel-body:hover {
-  background-color: transparent;
+  background-color: #eee;
 }
 
 #panel-heading {

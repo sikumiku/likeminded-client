@@ -1,0 +1,24 @@
+.NavigationItem {
+    font-size: 20px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    color: #9c3159;
+    font-weight: bold;
+    display: block;
+    font-family: "Trebuchet MS", serif;
+    width: 100%;
+}
+
+.NavigationItem a {
+    color: #9c3159;
+    text-decoration: none;
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+}
+
+.NavigationItem a:hover,
+.NavigationItem a:active,
+.NavigationItem a.active {
+    color: #163f6a;
+}

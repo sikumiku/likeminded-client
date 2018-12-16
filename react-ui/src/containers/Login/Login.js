@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import "./Login.css";
-import {login} from '../apiUtil/index';
-import {ACCESS_TOKEN} from '../constants/index';
+import classes from "./Login.module.css"
+import {login} from '../../apiUtil/index';
+import {ACCESS_TOKEN} from '../../constants/index';
 import {withRouter} from 'react-router-dom';
 
 import BodyBackgroundColor from 'react-body-backgroundcolor';
@@ -45,7 +45,7 @@ class Login extends Component {
                 localStorage.setItem(ACCESS_TOKEN, response.accessToken);
                 this.setState({redirect: true});
             }).catch(error => {
-                console.log(error);
+            console.log(error);
             if (error.status === 401) {
                 notification.error({
                     message: 'Polling App',
@@ -70,7 +70,7 @@ class Login extends Component {
         return (
             <BodyBackgroundColor backgroundColor='#eee2dc'>
                 <div className="container">
-                    <div className="Login">
+                    <div className={classes.Login}>
                         <form onSubmit={this.handleSubmit}>
                             <FormGroup controlId="email" bsSize="large">
                                 <ControlLabel>E-mail</ControlLabel>

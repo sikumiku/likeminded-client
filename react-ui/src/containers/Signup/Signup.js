@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import "./Signup.css";
-import {signup, login} from '../apiUtil/index';
+import classes from "./Signup.module.css"
+import {signup, login} from '../../apiUtil/index';
 import BodyBackgroundColor from 'react-body-backgroundcolor';
-import {ACCESS_TOKEN} from '../constants/index';
+import {ACCESS_TOKEN} from '../../constants/index';
 import {withRouter} from 'react-router-dom';
 import Redirect from "react-router-dom/es/Redirect";
 
@@ -57,7 +57,7 @@ class Signup extends Component {
             }).catch(error => {
             console.log(error)
         })
-    }
+    };
 
     render() {
         const { redirect } = this.state;
@@ -69,7 +69,7 @@ class Signup extends Component {
         return (
             <BodyBackgroundColor backgroundColor='#eee2dc'>
                 <div className="container">
-                    <div className="Signup">
+                    <div className={classes.Signup}>
                         <form onSubmit={this.handleSubmit}>
                             <FormGroup controlId="email" bsSize="large">
                                 <ControlLabel>E-mail</ControlLabel>

@@ -1,4 +1,6 @@
-import {API_BASE_URL, ACCESS_TOKEN} from '../constants';
+import {API_BASE_URL_DEVELOPMENT, API_BASE_URL_PRODUCTION, ACCESS_TOKEN} from '../constants';
+
+const API_URL = API_BASE_URL_DEVELOPMENT;
 
 const request = (options) => {
     const headers = new Headers({
@@ -23,9 +25,16 @@ const request = (options) => {
         );
 };
 
+export function getEvents() {
+    return request({
+        url: API_URL + "/api/v1/events",
+        method: 'GET'
+    });
+}
+
 export function login(loginRequest) {
     return request({
-        url: API_BASE_URL + "/api/auth/login",
+        url: API_URL + "/api/auth/login",
         method: 'POST',
         body: JSON.stringify(loginRequest)
     });
@@ -33,7 +42,7 @@ export function login(loginRequest) {
 
 export function signup(signupRequest) {
     return request({
-        url: API_BASE_URL + "/api/auth/signup",
+        url: API_URL + "/api/auth/signup",
         method: 'POST',
         body: JSON.stringify(signupRequest)
     });
@@ -45,7 +54,7 @@ export function getCurrentUser() {
     }
 
     return request({
-        url: API_BASE_URL + "/api/v1/users/me",
+        url: API_URL + "/api/v1/users/me",
         method: 'GET'
     });
 }

@@ -1,0 +1,72 @@
+import React from 'react';
+import BOARDGAMES from '../../../resources/spiritisland.png';
+import Button from "react-bootstrap/es/Button";
+import classes from "./EventList.module.css";
+
+const eventList = (props) => {
+
+    const eventList = props.events.map(event => {
+        // const address = event.address;
+        let addressLine = "";
+        let city = "";
+        let postcode = "";
+        let countryCode = "";
+
+        const categories = event.categories;
+        const categoryList = categories.length?categories.map(category => {
+            let categoryName=category.name;
+            return <img style={{left: "0px", width: '35px', height: '35px', margin: "0px 5px 0px 5px"}} src={window.location.origin + '/img/' + categoryName + '.svg'} alt={category.description}/>;
+        }):null;
+
+        // if (address !== null) {
+        //     addressLine = address.addressLine;
+        //     city = address.city;
+        //     postcode = address.postCode;
+        //     countryCode = address.countryCode;
+        // }
+        return (
+            <div style={{margin: "10px"}} className="card" key={event.toString()}>
+                <h4 id="panel-heading" className="card-header">
+                    <a className="panel-heading" href="#">{event.name}</a>
+                </h4>
+                <div id="panel-body" className="card-body">
+                    <div className="row">
+                        <div className="col col-lg-2">
+                            <img className="card-img-top" src={window.location.origin + '/img/event_placeholder.svg'} alt=""/>
+                        </div>
+                        <div className="col">
+                            <p className="card-text">Kirjeldus: {event.description}</p>
+                            <p className="card-text">Aadress: {addressLine} {city} {postcode} {countryCode}</p>
+                        </div>
+                        <div className="col col-lg-3">
+                            <p className="card-text text-right" >Event time and date</p>
+
+                            <div className="event-button-right">
+                                <Button>
+                                    OSALE
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className={classes.EventListCategories}>
+                    {categoryList}
+                </div>
+            </div>
+        );
+
+    });
+
+    return (
+        <div className="col-lg-9">
+            <div className="row">
+
+                <div className="col-lg-12 col-md-6 mb-4">
+                    {props.isLoading?<p>Loading...</p>:(!props.events.length?<p>No events to show.</p>:eventList)}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default eventList;
