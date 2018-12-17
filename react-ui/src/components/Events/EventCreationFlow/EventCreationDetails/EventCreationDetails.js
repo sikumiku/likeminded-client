@@ -7,31 +7,31 @@ import classes from "./EventCreationDetails.module.css"
 
 const eventCreationDetails = (props) => {
 
-    let form = null;
+    // let form = null;
 
     if (!props.hidden) {
-        form = <form onSubmit={props.handleSubmit}>
-                <FormGroup controlId="name" bsSize="large">
-                    <ControlLabel>Nimi</ControlLabel>
-                    <FormControl
-                        autoFocus
-                        value={props.name}
-                        onChange={props.handleChange}
-                    />
-                </FormGroup>
-                <FormGroup controlId="description" bsSize="large">
-                    <ControlLabel>Kirjeldus</ControlLabel>
-                    <FormControl
-                        value={props.description}
-                        onChange={props.handleChange}
-                    />
-                </FormGroup>
-                <Button block onClick={() => props.onClick(props.activePage)}>EDASI</Button>
-            </form>
+        // form = <form onSubmit={props.handleSubmit}>
+        //         <FormGroup controlId="name" bsSize="large">
+        //             <ControlLabel>Nimi</ControlLabel>
+        //             <FormControl
+        //                 autoFocus
+        //                 value={props.name}
+        //                 onChange={props.handleChange}
+        //             />
+        //         </FormGroup>
+        //         <FormGroup controlId="description" bsSize="large">
+        //             <ControlLabel>Kirjeldus</ControlLabel>
+        //             <FormControl
+        //                 value={props.description}
+        //                 onChange={props.handleChange}
+        //             />
+        //         </FormGroup>
+        //         <Button block onClick={() => props.onClick(props.activePage)}>EDASI</Button>
+        //     </form>
     }
 
     return (
-        <div className={classes.EventCreationDetails}>{form}</div>
+        <div className={classes.EventCreationDetails}>{props.form}</div>
     );
 };
 

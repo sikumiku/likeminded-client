@@ -1,0 +1,11 @@
+.CreateEventForm {
+    padding: 20px;
+}
+
+.CreateEventFormElement {
+    box-sizing: border-box;
+}
+
+.FormRow {
+    margin: 20px;
+}
