@@ -1,0 +1,72 @@
+.container {
+    flex: 1;
+    text-align: left;
+    margin-left: 50px;
+}
+.listView {
+    position: inherit;
+    margin-top: 20px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.row {
+    padding: 4px 4px 4px 0;
+}
+.content {
+    padding-left: 20px;
+    height: 25px;
+    margin-left: 0;
+    margin-bottom: 15px;
+    color: #1b1e21;
+}
+.timeline {
+    position: inherit;
+    top: 0;
+    left: 0;
+    height: 0;
+    width: 10px;
+    justify-content: center;
+    align-items: center;
+}
+.line {
+    position: absolute;
+    top: 180px;
+    left: 69px;
+    width: 1px;
+    height: 200px;
+    background-color: gray;
+    z-index: 0;
+}
+.hiddenLine {
+    width: 0;
+}
+.dot {
+    position: absolute;
+    margin-left: -3px;
+    margin-top: 2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    background-color: #9c3159;
+    z-index: 1;
+}
+
+.dotActive {
+    position: absolute;
+    margin-left: -3px;
+    margin-top: 2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    background-color: #163f6a;
+    z-index: 1;
+}
+
+.Heading {
+    display: flex;
+    padding: 10px;
+    margin: 10px;
+    flex-flow: column;
+}
