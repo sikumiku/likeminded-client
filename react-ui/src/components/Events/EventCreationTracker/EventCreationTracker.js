@@ -24,7 +24,7 @@ class EventCreationTracker extends Component {
     render() {
         return (
             <div className="col-lg-3">
-                <h2 style={{color: "#9c3159"}}>ÜRITUSE LOOMINE</h2>
+                <h1 className={classes.Heading} style={{color: "#9c3159"}}>ÜRITUSE LOOMINE</h1>
                 <ul>
                     <NavigationItem link="/myEvents">
                         Minu üritused

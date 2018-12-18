@@ -9,6 +9,9 @@ import EventCreationConfirmation from '../../../components/Events/EventCreationF
 import Input from '../../../components/UI/Input/Input';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import classes from './CreateEvent.module.css';
+import RadioBooleanInput from '../../../components/UI/RadioInput/RadioInput';
+import Checkbox from '../../../components/UI/Checkbox/Checkbox';
+import GuestCountField from '../../../components/Events/EventCreationFlow/GuestCountField/GuestCountField';
 
 class CreateEvent extends Component {
     state = {
@@ -40,158 +43,22 @@ class CreateEvent extends Component {
                 },
                 valid: false,
                 touched: false
-            },
-            // openToPublicYes: {
-            //     elementType: 'radio',
-            //     elementConfig: {
-            //         name: "openToPublicTrue"
-            //     },
-            //     value: "Jah",
-            //     validation: {},
-            //     valid: true
-            // },
-            // openToPublicNo: {
-            //     elementType: 'radio',
-            //     elementConfig: {
-            //         name: "openToPublicFalse"
-            //     },
-            //     value: "Ei",
-            //     validation: {},
-            //     valid: true
-            // },
-            // unlimitedParticipantsYes: {
-            //     elementType: 'radio',
-            //     elementConfig: {
-            //         name: "unlimitedParticipantsTrue"
-            //     },
-            //     value: "Jah",
-            //     validation: {},
-            //     valid: true
-            // },
-            // unlimitedParticipantsNo: {
-            //     elementType: 'radio',
-            //     elementConfig: {
-            //         name: "unlimitedParticipantsFalse"
-            //     },
-            //     value: "Ei",
-            //     validation: {},
-            //     valid: true
-            // },
-            // maxParticipants: {
-            //     elementType: 'input',
-            //     elementConfig: {
-            //         type: 'number'
-            //     },
-            //     value: '',
-            //     validation: {
-            //         required: false,
-            //         isNumeric: true
-            //     },
-            //     valid: false,
-            //     touched: false
-            // },
-            // categoryBoardGame: {
-            //     elementType: 'checkbox',
-            //     elementConfig: {
-            //         name: 'category1',
-            //         fieldName: 'Lauamängud',
-            //         checked: true
-            //     },
-            //     value: 'boardgames',
-            //     validation: {
-            //         required: false
-            //     },
-            //     valid: true
-            // },
-            // categoryCardgame: {
-            //     elementType: 'checkbox',
-            //     elementConfig: {
-            //         name: 'category2',
-            //         fieldName: 'Kaardimängud',
-            //         checked: true
-            //     },
-            //     value: 'cardGames',
-            //     validation: {
-            //         required: false
-            //     },
-            //     valid: true
-            // },
-            // categoryClassical: {
-            //     elementType: 'checkbox',
-            //     elementConfig: {
-            //         name: 'category3',
-            //         fieldName: 'Klassikalised mängud',
-            //         checked: true
-            //     },
-            //     value: 'classical',
-            //     validation: {
-            //         required: false
-            //     },
-            //     valid: true
-            // },
-            // categoryDiceGames: {
-            //     elementType: 'checkbox',
-            //     elementConfig: {
-            //         name: 'category4',
-            //         fieldName: 'Täringumängud',
-            //         checked: true
-            //     },
-            //     value: 'diceGames',
-            //     validation: {
-            //         required: false
-            //     },
-            //     valid: true
-            // },
-            // categoryMiniatures: {
-            //     elementType: 'checkbox',
-            //     elementConfig: {
-            //         name: 'category5',
-            //         fieldName: 'Rollimängud',
-            //         checked: true
-            //     },
-            //     value: 'roleplaying',
-            //     validation: {
-            //         required: false
-            //     },
-            //     valid: true
-            // },
-            // categoryRoleplaying: {
-            //     elementType: 'checkbox',
-            //     elementConfig: {
-            //         name: 'category6',
-            //         fieldName: '"Tile" mängud',
-            //         checked: true
-            //     },
-            //     value: 'cardGames',
-            //     validation: {
-            //         required: false
-            //     },
-            //     valid: true
-            // },
-            // categoryTileGames: {
-            //     elementType: 'checkbox',
-            //     elementConfig: {
-            //         name: 'category7',
-            //         fieldName: 'Miniatuurimängud',
-            //         checked: true
-            //     },
-            //     value: 'miniatures',
-            //     validation: {
-            //         required: false
-            //     },
-            //     valid: true
-            // }
+            }
         },
-        event: {
-            name: "An event",
-            description: "Description",
-            openToPublic: true,
-            unlimitedParticipants: true,
-            maxParticipants: 15,
-            categories: ["BOARDGAMES", "DICEGAMES"]
-        },
+        eventName: "",
+        eventDescription: "",
         openToPublic: true,
         unlimitedParticipants: true,
+        maxParticipants: 1,
+        categories: [],
+        boardgames: true,
+        cardgames: true,
+        tilegames: true,
+        roleplaying: true,
+        miniatures: true,
+        classical: true,
+        dicegames: true,
+        categoriesTouched: false,
         inEventDetails: true,
         inEventPicture: false,
         inEventConfirmation: false,
@@ -200,11 +67,26 @@ class CreateEvent extends Component {
         loading: false
     };
 
-    handleOptionChange = () => {
-        console.log("option changes");
-        // this.setState({
-        //     targetOption: event.target.value
-        // });
+    handleOptionChange = (event, name) => {
+        switch(name) {
+            case "unlimitedParticipants":
+                if (event.target.value === "yes") {
+                    this.setState({unlimitedParticipants: true});
+                } else if (event.target.value === "no") {
+                    this.setState({unlimitedParticipants: false});
+                }
+                break;
+            case "openToPublic":
+                if (event.target.value === "yes") {
+                    this.setState({openToPublic: true});
+                } else if (event.target.value === "no") {
+                    this.setState({openToPublic: false});
+                }
+                break;
+            default:
+                this.setState({unlimitedParticipants: true});
+                this.setState({openToPublic: true});
+        }
     };
 
     inputChangedHandler = (event, inputIdentifier) => {
@@ -224,6 +106,10 @@ class CreateEvent extends Component {
             formIsValid = updatedEventDetailsForm[inputIdentifier].valid && formIsValid;
         }
         this.setState({eventDetailsForm: updatedEventDetailsForm, formIsValid: formIsValid});
+    };
+
+    inputChanged = (event) => {
+        this.setState({maxParticipants: event.target.value});
     };
 
     checkValidity(value, rules) {
@@ -253,16 +139,16 @@ class CreateEvent extends Component {
     }
 
     eventHandler = ( event ) => {
-        event.preventDefault();
-        this.setState( { loading: true } );
-        const formData = {};
-        for (let formElementIdentifier in this.state.eventDetailsForm) {
-            formData[formElementIdentifier] = this.state.eventDetailsForm[formElementIdentifier].value;
-        }
-        const eventt = {
-
-        };
-        //post data (start using axios?)
+        // event.preventDefault();
+        // this.setState( { loading: true } );
+        // const formData = {};
+        // for (let formElementIdentifier in this.state.eventDetailsForm) {
+        //     formData[formElementIdentifier] = this.state.eventDetailsForm[formElementIdentifier].value;
+        // }
+        // const eventt = {
+        //
+        // };
+        // post data (start using axios?)
     };
 
     // async handleSubmit(event) {
@@ -297,6 +183,114 @@ class CreateEvent extends Component {
         }
     };
 
+    changeCategoryWithFalse(category) {
+        switch (category){
+            case "boardgames":
+                this.setState({boardgames: true});
+                this.setState({cardgames: false});
+                this.setState({tilegames: false});
+                this.setState({classical: false});
+                this.setState({dicegames: false});
+                this.setState({roleplaying: false});
+                this.setState({miniatures: false});
+                break;
+            case "cardgames":
+                this.setState({boardgames: false});
+                this.setState({cardgames: true});
+                this.setState({tilegames: false});
+                this.setState({classical: false});
+                this.setState({dicegames: false});
+                this.setState({roleplaying: false});
+                this.setState({miniatures: false});
+                break;
+            case "tilegames":
+                this.setState({boardgames: false});
+                this.setState({cardgames: false});
+                this.setState({tilegames: true});
+                this.setState({classical: false});
+                this.setState({dicegames: false});
+                this.setState({roleplaying: false});
+                this.setState({miniatures: false});
+                break;
+            case "classical":
+                this.setState({boardgames: false});
+                this.setState({cardgames: false});
+                this.setState({tilegames: false});
+                this.setState({classical: true});
+                this.setState({dicegames: false});
+                this.setState({roleplaying: false});
+                this.setState({miniatures: false});
+                break;
+            case "dicegames":
+                this.setState({boardgames: false});
+                this.setState({cardgames: false});
+                this.setState({tilegames: false});
+                this.setState({classical: false});
+                this.setState({dicegames: true});
+                this.setState({roleplaying: false});
+                this.setState({miniatures: false});
+                break;
+            case "roleplaying":
+                this.setState({boardgames: false});
+                this.setState({cardgames: false});
+                this.setState({tilegames: false});
+                this.setState({classical: false});
+                this.setState({dicegames: false});
+                this.setState({roleplaying: true});
+                this.setState({miniatures: false});
+                break;
+            case "miniatures":
+                this.setState({boardgames: false});
+                this.setState({cardgames: false});
+                this.setState({tilegames: false});
+                this.setState({classical: false});
+                this.setState({dicegames: false});
+                this.setState({roleplaying: false});
+                this.setState({miniatures: true});
+                break;
+            default:
+                return;
+        }
+    }
+
+    changeCategory(category) {
+        switch (category){
+            case "boardgames":
+                this.setState({boardgames: !this.state.boardgames});
+                break;
+            case "cardgames":
+                this.setState({cardgames: !this.state.cardgames});
+                break;
+            case "tilegames":
+                this.setState({tilegames: !this.state.tilegames});
+                break;
+            case "classical":
+                this.setState({classical: !this.state.classical});
+                break;
+            case "dicegames":
+                this.setState({dicegames: !this.state.dicegames});
+                break;
+            case "roleplaying":
+                this.setState({roleplaying: !this.state.roleplaying});
+                break;
+            case "miniatures":
+                this.setState({miniatures: !this.state.miniatures});
+                break;
+            default:
+                return;
+        }
+    }
+
+    handleCategoryChange = (event) => {
+        const incomingKey = event.target.value;
+        if (!this.state.categoriesTouched) {
+            this.changeCategoryWithFalse(incomingKey);
+            this.setState({categoriesTouched: true});
+        } else {
+            this.changeCategory(incomingKey);
+        }
+    };
+
     render() {
 
         const formElementsArray = [];
@@ -317,27 +311,44 @@ class CreateEvent extends Component {
                         invalid={!formElement.config.valid}
                         shouldValidate={formElement.config.validation}
                         touched={formElement.config.touched}
-                        optionChange={this.handleOptionChange}
                         changed={(event) => this.inputChangedHandler(event, formElement.id)} />
                 ))}
                 <div className="row">
-                    <div className="col-3">
+                    <div className="col-4">
                         <div className={classes.FormRow}>
                             <div style={{textAlign: "left", paddingLeft: "20px"}}>Avatud üritus:</div>
                         </div>
                     </div>
-                    <div className="col-auto - variable width content">
+                    <RadioBooleanInput name="openToPublic" onChange={this.handleOptionChange}/>
+                </div>
+                <div className="row">
+                    <div className="col-4">
                         <div className={classes.FormRow}>
-                            <input className={classes.CreateEventFormElement} onChange={this.handleOptionChange} type="radio" name="openToPublic" value="yes" defaultChecked/>Jah
+                            <div style={{textAlign: "left", paddingLeft: "20px"}}>Piiramatu külaliste arv:</div>
                         </div>
                     </div>
-                    <div className="col-auto - variable width content">
+                    <RadioBooleanInput name="unlimitedParticipants" onChange={this.handleOptionChange}/>
+                </div>
+                <GuestCountField value={this.state.maxParticipants} show={!this.state.unlimitedParticipants} changed={this.inputChanged}/>
+                <div className="row">
+                    <div className="col-4">
                         <div className={classes.FormRow}>
-                            <input className={classes.CreateEventFormElement} onChange={this.handleOptionChange} type="radio" name="openToPublic" value="no"/>Ei
+                            <div style={{textAlign: "left", paddingLeft: "20px"}}>Ürituse kategooriad:</div>
                         </div>
+                    </div>
+                    {/*TODO: add allCategories and trigger other checkboxes based on it*/}
+                    <div className="col-6">
+                        <Checkbox name="category1" value="boardgames" label=" Lauamängud" onChange={this.handleCategoryChange}/>
+                        <Checkbox name="category2" value="dicegames" label=" Täringumängud" onChange={this.handleCategoryChange}/>
+                        <Checkbox name="category3" value="cardgames" label=" Kaardimängud" onChange={this.handleCategoryChange}/>
+                        <Checkbox name="category4" value="classical" label=" Klassikalised mängud" onChange={this.handleCategoryChange}/>
+                        <Checkbox name="category5" value="tilegames" label=" 'Tile' mängud" onChange={this.handleCategoryChange}/>
+                        <Checkbox name="category6" value="roleplaying" label=" Rollimängud" onChange={this.handleCategoryChange}/>
+                        <Checkbox name="category7" value="miniatures" label=" Miniatuurimängud" onChange={this.handleCategoryChange}/>
                     </div>
                 </div>
-                <Button>ORDER</Button>
+
+                {/*<Button onClick={this.eventHandler()} disabled={!this.state.formIsValid}>EDASI</Button>*/}
 
             </form>
         );

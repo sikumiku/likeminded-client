@@ -1,22 +1,28 @@
 import React from 'react';
 import Button from "react-bootstrap/es/Button";
 import classes from './EventCreationPicture.module.css'
+import Aux from '../../../../hoc/Auxilliary/Auxilliary';
 
 const eventCreationPicture = (props) => {
     let form = null;
+    let button = null;
 
     if (!props.hidden) {
         form = (
                 <div>
-                    <strong>Event creation picture</strong>
-                    <Button block onClick={() => props.onClick(props.activePage)}>EDASI</Button>
+                    <strong>Ürituse pildi üles laadimine</strong>
                 </div>
         );
-
+        button = <Button block onClick={() => props.onClick(props.activePage)}>EDASI</Button>
     }
 
     return (
-        <div className={classes.EventCreationPicture}>{form}</div>
+        <Aux>
+            <div className={classes.EventCreationPicture}>
+                {form}
+            </div>
+            {button}
+        </Aux>
     );
 };
 

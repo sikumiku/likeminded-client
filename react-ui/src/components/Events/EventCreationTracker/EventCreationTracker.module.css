@@ -63,3 +63,10 @@
     background-color: #163f6a;
     z-index: 1;
 }
+
+.Heading {
+    display: flex;
+    padding: 10px;
+    margin: 10px;
+    flex-flow: column;
+}
