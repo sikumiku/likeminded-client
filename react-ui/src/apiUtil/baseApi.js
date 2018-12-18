@@ -1,6 +1,6 @@
 import {API_BASE_URL_DEVELOPMENT, API_BASE_URL_PRODUCTION, ACCESS_TOKEN} from '../constants';
 
-const API_URL = API_BASE_URL_DEVELOPMENT;
+const API_URL = API_BASE_URL_PRODUCTION;
 
 const request = (options) => {
     const headers = new Headers({
