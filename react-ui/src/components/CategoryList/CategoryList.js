@@ -9,9 +9,10 @@ const categoryList = (props) => {
             <ListGroup >
                 {props.options.map((option) => (
                     <ListGroupItem id="panel-body"
+                                   key={option.option}
                                    className={option.option===props.selectedOption.option?"groupitem":""}
                                    onClick={(e) => props.onOptionClick(option)}>
-                        <a href="#" className={option.option===props.selectedOption.option?"groupitem":"panel-link"}>{option.title}</a>
+                        <a href="/" className={option.option===props.selectedOption.option?"groupitem":"panel-link"}>{option.title}</a>
                     </ListGroupItem>
                 ))}
             </ListGroup>

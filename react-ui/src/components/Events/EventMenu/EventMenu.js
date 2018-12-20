@@ -1,7 +1,5 @@
 import React from 'react';
 import classes from './EventMenu.module.css'
-import NavLink from "react-router-dom/es/NavLink";
-import Link from "react-router-dom/es/Link";
 import NavigationItem from '../../Navigation/NavigationItem/NavigationItem';
 import CategoryList from '../../CategoryList/CategoryList'
 

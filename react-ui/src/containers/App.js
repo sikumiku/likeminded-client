@@ -4,7 +4,6 @@ import {getCurrentUser} from "../apiUtil/index";
 import {ACCESS_TOKEN} from '../constants/index';
 import Routes from "../components/Routes";
 import AppNavbar from './AppNavbar/AppNavbar';
-import {notification} from 'antd';
 import {withRouter} from 'react-router-dom';
 
 class App extends Component {
@@ -60,9 +59,7 @@ class App extends Component {
     };
 
     render() {
-        const {currentUser, isAuthenticated, isLoading, onLogOut} = this.state;
-
-        if (isLoading) {
+        if (this.state.isLoading) {
             return <p>Loading...</p>;
         }
 
@@ -76,7 +73,7 @@ class App extends Component {
 
         return (
             <div className="App">
-                <AppNavbar isAuthenticated={this.state.isAuthenticated} currentUser={this.state.currentUser} onLogOut={this.handleLogout}/>
+                <AppNavbar isAuthenticated={childProps.isAuthenticated} currentUser={childProps.currentUser} onLogOut={childProps.onLogOut}/>
                 <Routes childProps={childProps} />
             </div>
         )

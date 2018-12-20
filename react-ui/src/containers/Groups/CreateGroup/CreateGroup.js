@@ -288,7 +288,7 @@ class CreateGroup extends Component {
         let form = (
             <form className={classes.CreateGroupForm} onSubmit={this.eventHandler}>
                 {formElementsArray.map(formElement => (
-                    <Aux>
+                    <Aux key={formElement.config.title}>
                         <div>{formElement.config.title}</div>
                         <Input
                             key={formElement.id}

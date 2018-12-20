@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
-import {Button} from 'reactstrap';
 import {withRouter} from 'react-router-dom';
-import {instanceOf} from 'prop-types';
-import {withCookies, Cookies} from 'react-cookie';
 import BodyBackgroundColor from 'react-body-backgroundcolor';
 import {getGroups} from "../../../apiUtil/groupApi";
 import GroupMenu from '../../../components/Groups/GroupMenu/GroupMenu';
@@ -98,4 +95,4 @@ class GroupHub extends Component {
         );
     };
 }
-export default withCookies(withRouter(GroupHub));
+export default withRouter(GroupHub);

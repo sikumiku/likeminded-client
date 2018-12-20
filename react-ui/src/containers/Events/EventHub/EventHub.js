@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
-import {Button} from 'reactstrap';
 import {withRouter} from 'react-router-dom';
-import {instanceOf} from 'prop-types';
-import {withCookies, Cookies} from 'react-cookie';
 import BodyBackgroundColor from 'react-body-backgroundcolor';
 import {getEvents} from "../../../apiUtil/eventApi";
 import EventMenu from '../../../components/Events/EventMenu/EventMenu';
@@ -41,7 +38,6 @@ class EventHub extends Component {
         getEvents()
             .then(data => {
                 this.setState({events: data, isLoading: false, cachedEvents: data});
-                console.log(data)
             });
     }
 
@@ -98,4 +94,4 @@ class EventHub extends Component {
         );
     };
 }
-export default withCookies(withRouter(EventHub));
+export default withRouter(EventHub);

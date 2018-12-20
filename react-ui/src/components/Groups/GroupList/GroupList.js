@@ -1,45 +1,43 @@
 import React from 'react';
-import BOARDGAMES from '../../../resources/spiritisland.png';
 import Button from "react-bootstrap/es/Button";
-import classes from "./GroupList.module.css";
 
 const groupList = (props) => {
 
     const groupList = props.groups.map(group => {
 
-        const fullCategories = [
-            {
-                name: "BOARDGAMES",
-                description: "Lauamängud"
-            },
-            {
-                name: "CARDGAMES",
-                description: "Kaardimängud"
-            },
-            {
-                name: "CLASSICAL",
-                description: "Klassikalised mängud"
-            },
-            {
-                name: "DICEGAMES",
-                description: "Täringumängud"
-            },
-            {
-                name: "MINIATURES",
-                description: "Miniatuurimängud"
-            },
-            {
-                name: "ROLEPLAYING",
-                description: "Rollimängud"
-            },
-            {
-                name: "TILEGAMES",
-                description: "'Tile' mängud"
-            }
-        ];
-        let categoryList = fullCategories.map(cat => {
-            return <img style={{left: "0px", width: '35px', height: '35px', margin: "0px 5px 0px 5px"}} src={window.location.origin + '/img/' + cat.name + '.svg'} alt={cat.description}/>
-        });
+        // const fullCategories = [
+        //     {
+        //         name: "BOARDGAMES",
+        //         description: "Lauamängud"
+        //     },
+        //     {
+        //         name: "CARDGAMES",
+        //         description: "Kaardimängud"
+        //     },
+        //     {
+        //         name: "CLASSICAL",
+        //         description: "Klassikalised mängud"
+        //     },
+        //     {
+        //         name: "DICEGAMES",
+        //         description: "Täringumängud"
+        //     },
+        //     {
+        //         name: "MINIATURES",
+        //         description: "Miniatuurimängud"
+        //     },
+        //     {
+        //         name: "ROLEPLAYING",
+        //         description: "Rollimängud"
+        //     },
+        //     {
+        //         name: "TILEGAMES",
+        //         description: "'Tile' mängud"
+        //     }
+        // ];
+        // let categoryList = fullCategories.map(cat => {
+        //     return <img style={{left: "0px", width: '35px', height: '35px', margin: "0px 5px 0px 5px"}} src={window.location.origin + '/img/' + cat.name + '.svg'} alt={cat.description}/>
+        // });
 
         // const categories = event.categories;
         // categoryList = categories.length?categories.map(category => {
@@ -48,9 +46,9 @@ const groupList = (props) => {
         // }):categoryList;
 
         return (
-            <div style={{margin: "10px"}} className="card" key={group.toString()}>
+            <div style={{margin: "10px"}} className="card" key={group.id}>
                 <h4 id="panel-heading" className="card-header">
-                    <a className="panel-heading" href="#">{group.name}</a>
+                    <a className="panel-heading" href="/">{group.name}</a>
                 </h4>
                 <div id="panel-body" className="card-body">
                     <div className="row">

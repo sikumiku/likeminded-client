@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import BodyBackgroundColor from 'react-body-backgroundcolor';
 import EventCreationTracker from '../../../components/Events/EventCreationTracker/EventCreationTracker'
-import { Button } from "react-bootstrap";
 import EventCreationDetails from '../../../components/Events/EventCreationFlow/EventCreationDetails/EventCreationDetails';
 import EventCreationPicture from '../../../components/Events/EventCreationFlow/EventCreationPicture/EventCreationPicture';
 import EventCreationConfirmation from '../../../components/Events/EventCreationFlow/EventCreationConfirmation/EventCreationConfirmation';

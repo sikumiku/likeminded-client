@@ -1,5 +1,4 @@
 import React from 'react';
-import BOARDGAMES from '../../../resources/spiritisland.png';
 import Button from "react-bootstrap/es/Button";
 import classes from "./EventList.module.css";
 
@@ -43,13 +42,12 @@ const eventList = (props) => {
             }
         ];
         let categoryList = fullCategories.map(cat => {
-            return <img style={{left: "0px", width: '35px', height: '35px', margin: "0px 5px 0px 5px"}} src={window.location.origin + '/img/' + cat.name + '.svg'} alt={cat.description}/>
+            return <img key={cat.name} style={{left: "0px", width: '35px', height: '35px', margin: "0px 5px 0px 5px"}} src={window.location.origin + '/img/' + cat.name + '.svg'} alt={cat.description}/>
         });
 
         const categories = event.categories;
         categoryList = categories.length?categories.map(category => {
-            let categoryName=category.name;
-            return <img style={{left: "0px", width: '35px', height: '35px', margin: "0px 5px 0px 5px"}} src={window.location.origin + '/img/' + categoryName + '.svg'} alt={category.description}/>;
+            return <img key={category.name} style={{left: "0px", width: '35px', height: '35px', margin: "0px 5px 0px 5px"}} src={window.location.origin + '/img/' + category.name + '.svg'} alt={category.description}/>;
         }):categoryList;
 
         // if (address !== null) {
@@ -59,9 +57,9 @@ const eventList = (props) => {
         //     countryCode = address.countryCode;
         // }
         return (
-            <div style={{margin: "10px"}} className="card" key={event.toString()}>
+            <div style={{margin: "10px"}} className="card" key={event.id}>
                 <h4 id="panel-heading" className="card-header">
-                    <a className="panel-heading" href="#">{event.name}</a>
+                    <a className="panel-heading" href="/">{event.name}</a>
                 </h4>
                 <div id="panel-body" className="card-body">
                     <div className="row">

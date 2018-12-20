@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import classes from "./Home.module.css"
 import { withRouter } from 'react-router-dom';
 import people_image from '../../resources/home-page-people.png';
 import logo_and_slogan from '../../resources/LogoandSlogan.png';
@@ -12,10 +11,6 @@ class Home extends Component {
         isAuthenticated: false,
         user: undefined
     };
-
-    constructor(props) {
-        super(props);
-    }
 
     async componentDidMount() {
         // const response = await fetch('http://localhost:8080/api/v1/events');
