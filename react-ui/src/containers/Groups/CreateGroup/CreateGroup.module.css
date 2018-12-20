@@ -1,0 +1,11 @@
+.CreateGroupForm {
+    padding: 20px;
+}
+
+.CreateGroupFormElement {
+    box-sizing: border-box;
+}
+
+.FormRow {
+    margin: 20px;
+}
