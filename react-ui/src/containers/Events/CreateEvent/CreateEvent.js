@@ -12,11 +12,13 @@ import RadioBooleanInput from '../../../components/UI/RadioInput/RadioInput';
 import Checkbox from '../../../components/UI/Checkbox/Checkbox';
 import GuestCountField from '../../../components/Events/EventCreationFlow/GuestCountField/GuestCountField';
 import {postEvent} from '../../../apiUtil/eventApi';
+import Aux from '../../../hoc/Auxilliary/Auxilliary';
 
 class CreateEvent extends Component {
     state = {
         eventDetailsForm: {
             name: {
+                title:  'Nimi:',
                 elementType: 'input',
                 elementConfig: {
                     type: 'text'
@@ -31,6 +33,7 @@ class CreateEvent extends Component {
                 touched: false
             },
             description: {
+                title:  'Kirjeldus:',
                 elementType: 'textarea',
                 elementConfig: {
                     type: 'text'
@@ -40,6 +43,67 @@ class CreateEvent extends Component {
                     required: true,
                     minLength: 5,
                     maxLength: 200
+                },
+                valid: false,
+                touched: false
+            },
+            addressLine: {
+                title:  'Aadress:',
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text'
+                },
+                value: '',
+                validation: {
+                    required: true,
+                    minLength: 5,
+                    maxLength: 30
+                },
+                valid: false,
+                touched: false
+            },
+            city: {
+                title:  'Linn:',
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text'
+                },
+                value: '',
+                validation: {
+                    required: true,
+                    minLength: 3,
+                    maxLength: 30
+                },
+                valid: false,
+                touched: false
+            },
+            postcode: {
+                title:  'Postikood:',
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text'
+                },
+                value: '',
+                validation: {
+                    required: true,
+                    minLength: 5,
+                    maxLength: 5
+                },
+                valid: false,
+                touched: false
+            },
+            // this should be a dropdown in the end
+            country: {
+                title:  'Riik:',
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text'
+                },
+                value: '',
+                validation: {
+                    required: true,
+                    minLength: 3,
+                    maxLength: 3
                 },
                 valid: false,
                 touched: false
@@ -181,12 +245,19 @@ class CreateEvent extends Component {
             categories.push("TILEGAMES");
         }
 
+        const address = {};
+        address["addressLine"] = formData.addressLine;
+        address["city"] = formData.city;
+        address["postcode"] = formData.postcode;
+        address["country"] = formData.country;
+
         postEvent({
             name: formData.name,
             description: formData.description,
             openToPublic: this.state.openToPublic,
             unlimitedParticipants: this.state.unlimitedParticipants,
             maxParticipants: this.state.maxParticipants,
+            address: address,
             categories: categories
         }).then(result => {
             console.log("Post was success! " + result)
@@ -332,15 +403,18 @@ class CreateEvent extends Component {
         let form = (
             <form className={classes.CreateEventForm} onSubmit={this.eventHandler}>
                 {formElementsArray.map(formElement => (
-                    <Input
-                        key={formElement.id}
-                        elementType={formElement.config.elementType}
-                        elementConfig={formElement.config.elementConfig}
-                        value={formElement.config.value}
-                        invalid={!formElement.config.valid}
-                        shouldValidate={formElement.config.validation}
-                        touched={formElement.config.touched}
-                        changed={(event) => this.inputChangedHandler(event, formElement.id)} />
+                    <Aux key={formElement.config.title}>
+                        <div>{formElement.config.title}</div>
+                            <Input
+                            elementType={formElement.config.elementType}
+                            elementConfig={formElement.config.elementConfig}
+                            value={formElement.config.value}
+                            invalid={!formElement.config.valid}
+                            shouldValidate={formElement.config.validation}
+                            touched={formElement.config.touched}
+                            changed={(event) => this.inputChangedHandler(event, formElement.id)} />
+                    </Aux>
+
                 ))}
                 <div className="row">
                     <div className="col-4">

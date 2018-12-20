@@ -5,7 +5,7 @@ import classes from "./EventList.module.css";
 const eventList = (props) => {
 
     const eventList = props.events.map(event => {
-        // const address = event.address;
+        const address = event.address;
         let addressLine = "";
         let city = "";
         let postcode = "";
@@ -50,12 +50,12 @@ const eventList = (props) => {
             return <img key={category.name} style={{left: "0px", width: '35px', height: '35px', margin: "0px 5px 0px 5px"}} src={window.location.origin + '/img/' + category.name + '.svg'} alt={category.description}/>;
         }):categoryList;
 
-        // if (address !== null) {
-        //     addressLine = address.addressLine;
-        //     city = address.city;
-        //     postcode = address.postCode;
-        //     countryCode = address.countryCode;
-        // }
+        if (address !== null) {
+            addressLine = address.addressLine;
+            city = address.city;
+            postcode = address.postcode;
+            countryCode = address.country;
+        }
         return (
             <div style={{margin: "10px"}} className="card" key={event.id}>
                 <h4 id="panel-heading" className="card-header">
