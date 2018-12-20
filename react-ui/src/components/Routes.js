@@ -7,6 +7,7 @@ import Login from "../containers/Login/Login";
 import Signup from "../containers/Signup/Signup";
 import NotFound from "../components/NotFound/NotFound";
 import Redirect from "react-router-dom/es/Redirect";
+import GroupHub from "../containers/Groups/GroupHub/GroupHub";
 
 export default ({ childProps }) =>
     <Switch>
@@ -18,6 +19,13 @@ export default ({ childProps }) =>
                 </EventHub>
                 : <Redirect to='/login'/>
         )}/>
+            <Route exact path="/groups" render={(props) => (
+                childProps.isAuthenticated === true
+                    ?
+                    <GroupHub isAuthenticated={childProps.isAuthenticated} currentUser={childProps.currentUser}>
+                    </GroupHub>
+                    : <Redirect to='/login'/>
+            )}/>
         <Route exact path="/createEvent" render={(props) => (
         childProps.isAuthenticated === true
             ?

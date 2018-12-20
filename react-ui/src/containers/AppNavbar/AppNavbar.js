@@ -36,7 +36,7 @@ class AppNavbar extends Component {
                     </NavItem>
                     <img src={navbarItemDivider} alt="Navbar divider" />
                     <NavItem>
-                        <NavLink href="http://localhost:3000"><span id="navbar-link">GRUPID</span></NavLink>
+                        <NavLink tag={Link} to="/groups"><span id="navbar-link">GRUPID</span></NavLink>
                     </NavItem>
                     <img src={navbarItemDivider} alt="Navbar divider" />
                     <NavItem>

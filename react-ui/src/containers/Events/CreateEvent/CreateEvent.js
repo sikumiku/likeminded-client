@@ -393,6 +393,7 @@ class CreateEvent extends Component {
                     <div className="col-lg-9">
                         <div className="row">
                             <div className="col-lg-12 col-md-6 mb-4">
+                                {/*//TODO: amend onClick handler (confirmation page is for submitting event)*/}
                                 <EventCreationDetails form={form} activePage={this.state.currentPage} onClick={this.handleSubmit} hidden={!this.state.inEventDetails}/>
                                 <EventCreationPicture activePage={this.state.currentPage} onClick={this.triggerNext} hidden={!this.state.inEventPicture}/>
                                 <EventCreationConfirmation activePage={this.state.currentPage} onClick={this.triggerNext} hidden={!this.state.inEventConfirmation}/>
