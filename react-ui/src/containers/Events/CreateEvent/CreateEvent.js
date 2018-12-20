@@ -12,6 +12,7 @@ import classes from './CreateEvent.module.css';
 import RadioBooleanInput from '../../../components/UI/RadioInput/RadioInput';
 import Checkbox from '../../../components/UI/Checkbox/Checkbox';
 import GuestCountField from '../../../components/Events/EventCreationFlow/GuestCountField/GuestCountField';
+import {postEvent} from '../../../apiUtil/eventApi';
 
 class CreateEvent extends Component {
     state = {
@@ -151,21 +152,50 @@ class CreateEvent extends Component {
         // post data (start using axios?)
     };
 
-    // async handleSubmit(event) {
-    //     event.preventDefault();
-    //     const {item} = this.state;
-    //
-    //     await fetch('/api/v1/event', {
-    //         method: (item.id) ? 'PUT' : 'POST',
-    //         headers: {
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify(item)
-    //         // credentials: 'include'
-    //     });
-    //     this.props.history.push('/events');
-    // }
+    handleSubmit = () => {
+        const formData = {};
+        for (let formElementIdentifier in this.state.eventDetailsForm) {
+            formData[formElementIdentifier] = this.state.eventDetailsForm[formElementIdentifier].value;
+        }
+
+        console.log(formData);
+        const categories = [];
+        if (this.state.boardgames) {
+            categories.push("BOARDGAMES");
+        }
+        if (this.state.cardgames) {
+            categories.push("CARDGAMES");
+        }
+        if (this.state.classical) {
+            categories.push("CLASSICAL");
+        }
+        if (this.state.dicegames) {
+            categories.push("DICEGAMES");
+        }
+        if (this.state.roleplaying) {
+            categories.push("ROLEPLAYING");
+        }
+        if (this.state.miniatures) {
+            categories.push("MINIATURES");
+        }
+        if (this.state.tilegames) {
+            categories.push("TILEGAMES");
+        }
+
+        postEvent({
+            name: formData.name,
+            description: formData.description,
+            openToPublic: this.state.openToPublic,
+            unlimitedParticipants: this.state.unlimitedParticipants,
+            maxParticipants: this.state.maxParticipants,
+            categories: categories
+        }).then(result => {
+            console.log("Post was success! " + result)
+        }).catch(error => {
+            console.log(error);
+        });
+        this.props.history.push('/events');
+    };
 
     triggerNext = (page) => {
         switch (page) {
@@ -363,7 +393,7 @@ class CreateEvent extends Component {
                     <div className="col-lg-9">
                         <div className="row">
                             <div className="col-lg-12 col-md-6 mb-4">
-                                <EventCreationDetails form={form} activePage={this.state.currentPage} onClick={this.triggerNext} hidden={!this.state.inEventDetails}/>
+                                <EventCreationDetails form={form} activePage={this.state.currentPage} onClick={this.handleSubmit} hidden={!this.state.inEventDetails}/>
                                 <EventCreationPicture activePage={this.state.currentPage} onClick={this.triggerNext} hidden={!this.state.inEventPicture}/>
                                 <EventCreationConfirmation activePage={this.state.currentPage} onClick={this.triggerNext} hidden={!this.state.inEventConfirmation}/>
                             </div>

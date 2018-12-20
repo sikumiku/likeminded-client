@@ -29,7 +29,7 @@ class EventCreationTracker extends Component {
                     <NavigationItem link="/myEvents">
                         Minu üritused
                     </NavigationItem>
-                    <NavigationItem link="/" exact>
+                    <NavigationItem link="/events" exact>
                         Kõik üritused
                     </NavigationItem>
                 </ul>

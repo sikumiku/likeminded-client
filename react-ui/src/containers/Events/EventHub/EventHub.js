@@ -4,7 +4,7 @@ import {withRouter} from 'react-router-dom';
 import {instanceOf} from 'prop-types';
 import {withCookies, Cookies} from 'react-cookie';
 import BodyBackgroundColor from 'react-body-backgroundcolor';
-import {getEvents} from "../../../apiUtil/baseApi";
+import {getEvents} from "../../../apiUtil/eventApi";
 import EventMenu from '../../../components/Events/EventMenu/EventMenu';
 import EventList from '../../../components/Events/EventList/EventList';
 

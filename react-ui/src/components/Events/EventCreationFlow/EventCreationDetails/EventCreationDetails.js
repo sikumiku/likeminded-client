@@ -13,7 +13,7 @@ const eventCreationDetails = (props) => {
 
     if (!props.hidden) {
         form = props.form;
-        button = <Button block onClick={() => props.onClick(props.activePage)}>EDASI</Button>
+        button = <Button block onClick={() => props.onClick()}>EDASI</Button>
         // form = <form onSubmit={props.handleSubmit}>
         //         <FormGroup controlId="name" bsSize="large">
         //             <ControlLabel>Nimi</ControlLabel>

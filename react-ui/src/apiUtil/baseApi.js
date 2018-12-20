@@ -1,6 +1,6 @@
 import {API_BASE_URL_DEVELOPMENT, API_BASE_URL_PRODUCTION, ACCESS_TOKEN} from '../constants';
 
-const API_URL = API_BASE_URL_PRODUCTION;
+const API_URL = API_BASE_URL_DEVELOPMENT;
 
 const request = (options) => {
     const headers = new Headers({
@@ -25,11 +25,26 @@ const request = (options) => {
         );
 };
 
-export function getEvents() {
+// export function getEvents() {
+//     return request({
+//         url: API_URL + "/api/v1/events",
+//         method: 'GET'
+//     });
+// }
+
+export function apiRequest(method, url) {
     return request({
-        url: API_URL + "/api/v1/events",
-        method: 'GET'
-    });
+        url: API_URL + url,
+        method: method
+    })
+}
+
+export function apiRequestWithBody(method, url, body) {
+    return request({
+        url: API_URL + url,
+        method: method,
+        body: JSON.stringify(body)
+    })
 }
 
 export function login(loginRequest) {
