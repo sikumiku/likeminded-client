@@ -4,16 +4,16 @@ import {withRouter} from 'react-router-dom';
 import {instanceOf} from 'prop-types';
 import {withCookies, Cookies} from 'react-cookie';
 import BodyBackgroundColor from 'react-body-backgroundcolor';
-import {getEvents} from "../../../apiUtil/eventApi";
-import EventMenu from '../../../components/Events/EventMenu/EventMenu';
-import EventList from '../../../components/Events/EventList/EventList';
+import {getGroups} from "../../../apiUtil/groupApi";
+import GroupMenu from '../../../components/Groups/GroupMenu/GroupMenu';
+import GroupList from "../../../components/Groups/GroupList/GroupList";
 
-class EventHub extends Component {
+class GroupHub extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            events: [],
-            cachedEvents: [],
+            groups: [],
+            cachedGroups: [],
             isLoading: true,
             progress: 50,
             options: [
@@ -38,36 +38,36 @@ class EventHub extends Component {
     componentDidMount() {
         this.setState({isLoading: true});
 
-        getEvents()
+        getGroups()
             .then(data => {
-                this.setState({events: data, isLoading: false, cachedEvents: data});
+                this.setState({groups: data, isLoading: false, cachedGroups: data});
                 console.log(data)
             });
     }
 
     onOptionClick = (optionObject) => {
-        this.setState({ selectedOption: optionObject });
-
-        if (optionObject.option === "ALL") {
-            let cachedEvents = this.state.cachedEvents;
-            this.setState({events: cachedEvents});
-        } else {
-            const events = this.state.cachedEvents;
-            const updatedEvents = events.filter(function (event) {
-                const categories = event.categories;
-                let match = false;
-                if (categories) {
-                    categories.forEach(category => {
-                        if (category.name === optionObject.option) {
-                            match = true;
-                            return match;
-                        }
-                    });
-                }
-                return match;
-            });
-            this.setState({events: updatedEvents});
-        }
+        // this.setState({ selectedOption: optionObject });
+        //
+        // if (optionObject.option === "ALL") {
+        //     const cachedGroups = this.state.cachedGroups;
+        //     this.setState({groups: cachedGroups});
+        // } else {
+        //     const groups = this.state.cachedGroups;
+            // const updatedGroups = groups.filter(function (group) {
+                // const categories = event.categories;
+                // let match = false;
+                // if (categories) {
+                //     categories.forEach(category => {
+                //         if (category.name === optionObject.option) {
+                //             match = true;
+                //             return match;
+                //         }
+                //     });
+                // }
+            //     return match;
+            // });
+            // this.setState({groups: updatedGroups});
+        // }
     };
 
     async remove(id) {
@@ -89,8 +89,8 @@ class EventHub extends Component {
                 <div>
                     <div className="container">
                         <div className="row">
-                            <EventMenu options={this.state.options} selectedOption={this.state.selectedOption} onOptionClick={this.onOptionClick}/>
-                            <EventList events={this.state.events} isLoading={this.state.isLoading}/>
+                            <GroupMenu options={this.state.options} selectedOption={this.state.selectedOption} onOptionClick={this.onOptionClick}/>
+                            <GroupList groups={this.state.groups} isLoading={this.state.isLoading}/>
                         </div>
                     </div>
                 </div>
@@ -98,4 +98,4 @@ class EventHub extends Component {
         );
     };
 }
-export default withCookies(withRouter(EventHub));
+export default withCookies(withRouter(GroupHub));
