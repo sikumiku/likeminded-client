@@ -40,7 +40,7 @@ class AppNavbar extends Component {
                     </NavItem>
                     <img src={navbarItemDivider} alt="Navbar divider" />
                     <NavItem>
-                        <NavLink href="http://localhost:3000"><span id="navbar-link">LEIA INIMESI</span></NavLink>
+                        <NavLink tag={Link} to="/people"><span id="navbar-link">LEIA INIMESI</span></NavLink>
                     </NavItem>
                     {this.props.isAuthenticated
                         ? <NavItem>
