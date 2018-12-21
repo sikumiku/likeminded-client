@@ -11,19 +11,13 @@ const eventList = (props) => {
         let postcode = "";
         let countryCode = "";
 
-        console.log(event.eventTimes);
+        //improve time rendering to be 12:00 - 14:00 startDate (if endDate is same day)
 
-        let startTime = new Date("2018-01-01T18:00:00");
-        let endTime = new Date("2018-12-21T13:08:19");
+        let timeSplitter = "";
 
-        console.log("eventTimes of event is " + event.eventTimes + " and its length " + event.eventTimes.length);
+        let renderedStartTime = "";
         if (event.eventTimes.length > 0) {
-            startTime = new Date(event.eventTimes[0].startDateTime);
-            endTime = new Date(event.eventTimes[0].startDateTime);
-        }
-
-        let renderedTime = "";
-        if (event.eventTimes.length > 0) {
+            timeSplitter = "-";
             const time = new Date(event.eventTimes[0].startDateTime);
             const hours = time.getHours();
             const minutes = time.getMinutes();
@@ -38,7 +32,26 @@ const eventList = (props) => {
             if (time.getMinutes()<10) {
                 minuteZero = "0";
             }
-            renderedTime = hourZero + hours + ":" + minuteZero + minutes + " " + day + "/" + month + "/" + year;
+            renderedStartTime = hourZero + hours + ":" + minuteZero + minutes + " " + day + "/" + month + "/" + year;
+        }
+
+        let renderedEndTime = "";
+        if (event.eventTimes.length > 0) {
+            const time = new Date(event.eventTimes[0].endDateTime);
+            const hours = time.getHours();
+            const minutes = time.getMinutes();
+            const day = time.getDate();
+            const month = time.getMonth() + 1;
+            const year = time.getFullYear();
+            let hourZero = "";
+            if (time.getHours()<10) {
+                hourZero = "0";
+            }
+            let minuteZero = "";
+            if (time.getMinutes()<10) {
+                minuteZero = "0";
+            }
+            renderedEndTime = hourZero + hours + ":" + minuteZero + minutes + " " + day + "/" + month + "/" + year;
         }
 
         const fullCategories = [
@@ -102,10 +115,7 @@ const eventList = (props) => {
                         </div>
                         <div className="col col-lg-3">
                             <p className="card-text text-right" >
-                                {console.log(startTime)}
-                                {renderedTime}
-                                {/*{startTime.toDateString()} {startTime.toTimeString()}*/}
-                                {/*{endTime.toDateString()} {endTime.toTimeString()}*/}
+                                {renderedStartTime} {timeSplitter} {renderedEndTime}
                             </p>
                             <div className="event-button-right">
                                 <Button>

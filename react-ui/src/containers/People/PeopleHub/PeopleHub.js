@@ -42,28 +42,28 @@ class PeopleHub extends Component {
     }
 
     onOptionClick = (optionObject) => {
-        // this.setState({ selectedOption: optionObject });
-        //
-        // if (optionObject.option === "ALL") {
-        //     const cachedGroups = this.state.cachedGroups;
-        //     this.setState({groups: cachedGroups});
-        // } else {
-        //     const groups = this.state.cachedGroups;
-        // const updatedGroups = groups.filter(function (group) {
-        // const categories = event.categories;
-        // let match = false;
-        // if (categories) {
-        //     categories.forEach(category => {
-        //         if (category.name === optionObject.option) {
-        //             match = true;
-        //             return match;
-        //         }
-        //     });
-        // }
-        //     return match;
-        // });
-        // this.setState({groups: updatedGroups});
-        // }
+        this.setState({ selectedOption: optionObject });
+
+        if (optionObject.option === "ALL") {
+            const cachedPeople = this.state.cachedPeople;
+            this.setState({people: cachedPeople});
+        } else {
+            const people = this.state.cachedPeople;
+        const updatedPeople = people.filter(function (people) {
+        const categories = people.categories;
+        let match = false;
+        if (categories) {
+            categories.forEach(category => {
+                if (category.name === optionObject.option) {
+                    match = true;
+                    return match;
+                }
+            });
+        }
+            return match;
+        });
+        this.setState({people: updatedPeople});
+        }
     };
 
     async remove(id) {

@@ -10,6 +10,7 @@ import GroupCreationDetails from "../../../components/Groups/GroupCreationFlow/G
 import GroupCreationPicture from "../../../components/Groups/GroupCreationFlow/GroupCreationPicture/GroupCreationPicture";
 import GroupCreationConfirmation from "../../../components/Groups/GroupCreationFlow/GroupCreationConfirmation/GroupCreationConfirmation";
 import GroupCreationTracker from "../../../components/Groups/GroupCreationTracker/GroupCreationTracker";
+import Checkbox from "../../../components/UI/Checkbox/Checkbox";
 
 class CreateGroup extends Component {
     state = {
@@ -81,10 +82,6 @@ class CreateGroup extends Component {
         this.setState({groupDetailsForm: updatedGroupDetailsForm, formIsValid: formIsValid});
     };
 
-    // inputChanged = (event) => {
-    //     this.setState({maxParticipants: event.target.value});
-    // };
-
     checkValidity(value, rules) {
         let isValid = true;
         if (!rules) {
@@ -117,33 +114,33 @@ class CreateGroup extends Component {
             formData[formElementIdentifier] = this.state.groupDetailsForm[formElementIdentifier].value;
         }
 
-        // const categories = [];
-        // if (this.state.boardgames) {
-        //     categories.push("BOARDGAMES");
-        // }
-        // if (this.state.cardgames) {
-        //     categories.push("CARDGAMES");
-        // }
-        // if (this.state.classical) {
-        //     categories.push("CLASSICAL");
-        // }
-        // if (this.state.dicegames) {
-        //     categories.push("DICEGAMES");
-        // }
-        // if (this.state.roleplaying) {
-        //     categories.push("ROLEPLAYING");
-        // }
-        // if (this.state.miniatures) {
-        //     categories.push("MINIATURES");
-        // }
-        // if (this.state.tilegames) {
-        //     categories.push("TILEGAMES");
-        // }
+        const categories = [];
+        if (this.state.boardgames) {
+            categories.push("BOARDGAMES");
+        }
+        if (this.state.cardgames) {
+            categories.push("CARDGAMES");
+        }
+        if (this.state.classical) {
+            categories.push("CLASSICAL");
+        }
+        if (this.state.dicegames) {
+            categories.push("DICEGAMES");
+        }
+        if (this.state.roleplaying) {
+            categories.push("ROLEPLAYING");
+        }
+        if (this.state.miniatures) {
+            categories.push("MINIATURES");
+        }
+        if (this.state.tilegames) {
+            categories.push("TILEGAMES");
+        }
 
         postGroup({
             name: formData.name,
-            description: formData.description
-            // categories: categories
+            description: formData.description,
+            categories: categories
         }).then(result => {
             console.log("Post was success! " + result)
         }).catch(error => {
@@ -168,113 +165,113 @@ class CreateGroup extends Component {
         }
     };
 
-    // changeCategoryWithFalse(category) {
-    //     switch (category){
-    //         case "boardgames":
-    //             this.setState({boardgames: true});
-    //             this.setState({cardgames: false});
-    //             this.setState({tilegames: false});
-    //             this.setState({classical: false});
-    //             this.setState({dicegames: false});
-    //             this.setState({roleplaying: false});
-    //             this.setState({miniatures: false});
-    //             break;
-    //         case "cardgames":
-    //             this.setState({boardgames: false});
-    //             this.setState({cardgames: true});
-    //             this.setState({tilegames: false});
-    //             this.setState({classical: false});
-    //             this.setState({dicegames: false});
-    //             this.setState({roleplaying: false});
-    //             this.setState({miniatures: false});
-    //             break;
-    //         case "tilegames":
-    //             this.setState({boardgames: false});
-    //             this.setState({cardgames: false});
-    //             this.setState({tilegames: true});
-    //             this.setState({classical: false});
-    //             this.setState({dicegames: false});
-    //             this.setState({roleplaying: false});
-    //             this.setState({miniatures: false});
-    //             break;
-    //         case "classical":
-    //             this.setState({boardgames: false});
-    //             this.setState({cardgames: false});
-    //             this.setState({tilegames: false});
-    //             this.setState({classical: true});
-    //             this.setState({dicegames: false});
-    //             this.setState({roleplaying: false});
-    //             this.setState({miniatures: false});
-    //             break;
-    //         case "dicegames":
-    //             this.setState({boardgames: false});
-    //             this.setState({cardgames: false});
-    //             this.setState({tilegames: false});
-    //             this.setState({classical: false});
-    //             this.setState({dicegames: true});
-    //             this.setState({roleplaying: false});
-    //             this.setState({miniatures: false});
-    //             break;
-    //         case "roleplaying":
-    //             this.setState({boardgames: false});
-    //             this.setState({cardgames: false});
-    //             this.setState({tilegames: false});
-    //             this.setState({classical: false});
-    //             this.setState({dicegames: false});
-    //             this.setState({roleplaying: true});
-    //             this.setState({miniatures: false});
-    //             break;
-    //         case "miniatures":
-    //             this.setState({boardgames: false});
-    //             this.setState({cardgames: false});
-    //             this.setState({tilegames: false});
-    //             this.setState({classical: false});
-    //             this.setState({dicegames: false});
-    //             this.setState({roleplaying: false});
-    //             this.setState({miniatures: true});
-    //             break;
-    //         default:
-    //             return;
-    //     }
-    // }
+    changeCategoryWithFalse(category) {
+        switch (category){
+            case "boardgames":
+                this.setState({boardgames: true});
+                this.setState({cardgames: false});
+                this.setState({tilegames: false});
+                this.setState({classical: false});
+                this.setState({dicegames: false});
+                this.setState({roleplaying: false});
+                this.setState({miniatures: false});
+                break;
+            case "cardgames":
+                this.setState({boardgames: false});
+                this.setState({cardgames: true});
+                this.setState({tilegames: false});
+                this.setState({classical: false});
+                this.setState({dicegames: false});
+                this.setState({roleplaying: false});
+                this.setState({miniatures: false});
+                break;
+            case "tilegames":
+                this.setState({boardgames: false});
+                this.setState({cardgames: false});
+                this.setState({tilegames: true});
+                this.setState({classical: false});
+                this.setState({dicegames: false});
+                this.setState({roleplaying: false});
+                this.setState({miniatures: false});
+                break;
+            case "classical":
+                this.setState({boardgames: false});
+                this.setState({cardgames: false});
+                this.setState({tilegames: false});
+                this.setState({classical: true});
+                this.setState({dicegames: false});
+                this.setState({roleplaying: false});
+                this.setState({miniatures: false});
+                break;
+            case "dicegames":
+                this.setState({boardgames: false});
+                this.setState({cardgames: false});
+                this.setState({tilegames: false});
+                this.setState({classical: false});
+                this.setState({dicegames: true});
+                this.setState({roleplaying: false});
+                this.setState({miniatures: false});
+                break;
+            case "roleplaying":
+                this.setState({boardgames: false});
+                this.setState({cardgames: false});
+                this.setState({tilegames: false});
+                this.setState({classical: false});
+                this.setState({dicegames: false});
+                this.setState({roleplaying: true});
+                this.setState({miniatures: false});
+                break;
+            case "miniatures":
+                this.setState({boardgames: false});
+                this.setState({cardgames: false});
+                this.setState({tilegames: false});
+                this.setState({classical: false});
+                this.setState({dicegames: false});
+                this.setState({roleplaying: false});
+                this.setState({miniatures: true});
+                break;
+            default:
+                return;
+        }
+    }
 
-    // changeCategory(category) {
-    //     switch (category){
-    //         case "boardgames":
-    //             this.setState({boardgames: !this.state.boardgames});
-    //             break;
-    //         case "cardgames":
-    //             this.setState({cardgames: !this.state.cardgames});
-    //             break;
-    //         case "tilegames":
-    //             this.setState({tilegames: !this.state.tilegames});
-    //             break;
-    //         case "classical":
-    //             this.setState({classical: !this.state.classical});
-    //             break;
-    //         case "dicegames":
-    //             this.setState({dicegames: !this.state.dicegames});
-    //             break;
-    //         case "roleplaying":
-    //             this.setState({roleplaying: !this.state.roleplaying});
-    //             break;
-    //         case "miniatures":
-    //             this.setState({miniatures: !this.state.miniatures});
-    //             break;
-    //         default:
-    //             return;
-    //     }
-    // }
+    changeCategory(category) {
+        switch (category){
+            case "boardgames":
+                this.setState({boardgames: !this.state.boardgames});
+                break;
+            case "cardgames":
+                this.setState({cardgames: !this.state.cardgames});
+                break;
+            case "tilegames":
+                this.setState({tilegames: !this.state.tilegames});
+                break;
+            case "classical":
+                this.setState({classical: !this.state.classical});
+                break;
+            case "dicegames":
+                this.setState({dicegames: !this.state.dicegames});
+                break;
+            case "roleplaying":
+                this.setState({roleplaying: !this.state.roleplaying});
+                break;
+            case "miniatures":
+                this.setState({miniatures: !this.state.miniatures});
+                break;
+            default:
+                return;
+        }
+    }
 
-    // handleCategoryChange = (event) => {
-    //     const incomingKey = event.target.value;
-    //     if (!this.state.categoriesTouched) {
-    //         this.changeCategoryWithFalse(incomingKey);
-    //         this.setState({categoriesTouched: true});
-    //     } else {
-    //         this.changeCategory(incomingKey);
-    //     }
-    // };
+    handleCategoryChange = (event) => {
+        const incomingKey = event.target.value;
+        if (!this.state.categoriesTouched) {
+            this.changeCategoryWithFalse(incomingKey);
+            this.setState({categoriesTouched: true});
+        } else {
+            this.changeCategory(incomingKey);
+        }
+    };
 
     render() {
 
@@ -301,25 +298,23 @@ class CreateGroup extends Component {
                             changed={(event) => this.inputChangedHandler(event, formElement.id)} />
                     </Aux>
                 ))}
-                {/*<div className="row">*/}
-                    {/*<div className="col-4">*/}
-                        {/*<div className={classes.FormRow}>*/}
-                            {/*<div style={{textAlign: "left", paddingLeft: "20px"}}>Ürituse kategooriad:</div>*/}
-                        {/*</div>*/}
-                    {/*</div>*/}
-                    {/*/!*TODO: add allCategories and trigger other checkboxes based on it*!/*/}
-                    {/*<div className="col-6">*/}
-                        {/*<Checkbox name="category1" value="boardgames" label=" Lauamängud" onChange={this.handleCategoryChange}/>*/}
-                        {/*<Checkbox name="category2" value="dicegames" label=" Täringumängud" onChange={this.handleCategoryChange}/>*/}
-                        {/*<Checkbox name="category3" value="cardgames" label=" Kaardimängud" onChange={this.handleCategoryChange}/>*/}
-                        {/*<Checkbox name="category4" value="classical" label=" Klassikalised mängud" onChange={this.handleCategoryChange}/>*/}
-                        {/*<Checkbox name="category5" value="tilegames" label=" 'Tile' mängud" onChange={this.handleCategoryChange}/>*/}
-                        {/*<Checkbox name="category6" value="roleplaying" label=" Rollimängud" onChange={this.handleCategoryChange}/>*/}
-                        {/*<Checkbox name="category7" value="miniatures" label=" Miniatuurimängud" onChange={this.handleCategoryChange}/>*/}
-                    {/*</div>*/}
-                {/*</div>*/}
-
-                {/*<Button onClick={this.eventHandler()} disabled={!this.state.formIsValid}>EDASI</Button>*/}
+                <div className="row">
+                    <div className="col-4">
+                        <div className={classes.FormRow}>
+                            <div style={{textAlign: "left", paddingLeft: "20px"}}>Ürituse kategooriad:</div>
+                        </div>
+                    </div>
+                    {/*TODO: add allCategories and trigger other checkboxes based on it*/}
+                    <div className="col-6">
+                        <Checkbox name="category1" value="boardgames" label=" Lauamängud" onChange={this.handleCategoryChange}/>
+                        <Checkbox name="category2" value="dicegames" label=" Täringumängud" onChange={this.handleCategoryChange}/>
+                        <Checkbox name="category3" value="cardgames" label=" Kaardimängud" onChange={this.handleCategoryChange}/>
+                        <Checkbox name="category4" value="classical" label=" Klassikalised mängud" onChange={this.handleCategoryChange}/>
+                        <Checkbox name="category5" value="tilegames" label=" 'Tile' mängud" onChange={this.handleCategoryChange}/>
+                        <Checkbox name="category6" value="roleplaying" label=" Rollimängud" onChange={this.handleCategoryChange}/>
+                        <Checkbox name="category7" value="miniatures" label=" Miniatuurimängud" onChange={this.handleCategoryChange}/>
+                    </div>
+                </div>
 
             </form>
         );

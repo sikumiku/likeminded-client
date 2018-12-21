@@ -1,49 +1,50 @@
 import React from 'react';
-import Button from "react-bootstrap/es/Button";
+import Button from 'react-bootstrap/es/Button';
+import classes from './PeopleList.module.css';
 
 const peopleList = (props) => {
 
     const peopleList = props.people.map(person => {
 
-        // const fullCategories = [
-        //     {
-        //         name: "BOARDGAMES",
-        //         description: "Lauamängud"
-        //     },
-        //     {
-        //         name: "CARDGAMES",
-        //         description: "Kaardimängud"
-        //     },
-        //     {
-        //         name: "CLASSICAL",
-        //         description: "Klassikalised mängud"
-        //     },
-        //     {
-        //         name: "DICEGAMES",
-        //         description: "Täringumängud"
-        //     },
-        //     {
-        //         name: "MINIATURES",
-        //         description: "Miniatuurimängud"
-        //     },
-        //     {
-        //         name: "ROLEPLAYING",
-        //         description: "Rollimängud"
-        //     },
-        //     {
-        //         name: "TILEGAMES",
-        //         description: "'Tile' mängud"
-        //     }
-        // ];
-        // let categoryList = fullCategories.map(cat => {
-        //     return <img style={{left: "0px", width: '35px', height: '35px', margin: "0px 5px 0px 5px"}} src={window.location.origin + '/img/' + cat.name + '.svg'} alt={cat.description}/>
-        // });
+        const fullCategories = [
+            {
+                name: "BOARDGAMES",
+                description: "Lauamängud"
+            },
+            {
+                name: "CARDGAMES",
+                description: "Kaardimängud"
+            },
+            {
+                name: "CLASSICAL",
+                description: "Klassikalised mängud"
+            },
+            {
+                name: "DICEGAMES",
+                description: "Täringumängud"
+            },
+            {
+                name: "MINIATURES",
+                description: "Miniatuurimängud"
+            },
+            {
+                name: "ROLEPLAYING",
+                description: "Rollimängud"
+            },
+            {
+                name: "TILEGAMES",
+                description: "'Tile' mängud"
+            }
+        ];
+        let categoryList = fullCategories.map(cat => {
+            return <img style={{left: "0px", width: '35px', height: '35px', margin: "0px 5px 0px 5px"}} src={window.location.origin + '/img/' + cat.name + '.svg'} alt={cat.description}/>
+        });
 
-        // const categories = event.categories;
-        // categoryList = categories.length?categories.map(category => {
-        //     let categoryName=category.name;
-        //     return <img style={{left: "0px", width: '35px', height: '35px', margin: "0px 5px 0px 5px"}} src={window.location.origin + '/img/' + categoryName + '.svg'} alt={category.description}/>;
-        // }):categoryList;
+        const categories = person.categories;
+        categoryList = categories.length?categories.map(category => {
+            let categoryName=category.name;
+            return <img style={{left: "0px", width: '35px', height: '35px', margin: "0px 5px 0px 5px"}} src={window.location.origin + '/img/' + categoryName + '.svg'} alt={category.description}/>;
+        }):categoryList;
         let name = "";
         if (person.firstname && person.lastname) {
             name = person.firstname + " " + person.lastname
@@ -72,9 +73,9 @@ const peopleList = (props) => {
                         </div>
                     </div>
                 </div>
-                {/*<div className={classes.EventListCategories}>*/}
-                {/*{categoryList}*/}
-                {/*</div>*/}
+                <div className={classes.PeopleListCategories}>
+                {categoryList}
+                </div>
             </div>
         );
 
