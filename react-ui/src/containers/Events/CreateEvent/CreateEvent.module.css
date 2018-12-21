@@ -9,3 +9,8 @@
 .FormRow {
     margin: 20px;
 }
+
+.TextField {
+    text-align: left;
+    width: 200px;
+}

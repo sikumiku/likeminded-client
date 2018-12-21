@@ -11,6 +11,18 @@ const eventList = (props) => {
         let postcode = "";
         let countryCode = "";
 
+        console.log(event.eventTimes);
+
+        let startTime = new Date("2018-12-21T13:08:19");
+        let endTime = new Date("2018-12-21T13:08:19");
+
+        console.log("eventTimes of event is " + event.eventTimes + " and its length " + event.eventTimes.length);
+        if (event.eventTimes.length > 0) {
+
+            startTime = new Date(event.eventTimes[0].startDateTime);
+            endTime = new Date(event.eventTimes[0].startDateTime);
+        }
+
         const fullCategories = [
             {
                 name: "BOARDGAMES",
@@ -71,8 +83,12 @@ const eventList = (props) => {
                             <p className="card-text">Aadress: {addressLine} {city} {postcode} {countryCode}</p>
                         </div>
                         <div className="col col-lg-3">
-                            <p className="card-text text-right" >Event time and date</p>
-
+                            <p className="card-text text-right" >
+                                {console.log(startTime)}
+                                {startTime.toDateString()}
+                                {/*{startTime.toDateString()} {startTime.toTimeString()}*/}
+                                {/*{endTime.toDateString()} {endTime.toTimeString()}*/}
+                            </p>
                             <div className="event-button-right">
                                 <Button>
                                     OSALE

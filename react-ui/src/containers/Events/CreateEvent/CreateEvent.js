@@ -13,9 +13,17 @@ import Checkbox from '../../../components/UI/Checkbox/Checkbox';
 import GuestCountField from '../../../components/Events/EventCreationFlow/GuestCountField/GuestCountField';
 import {postEvent} from '../../../apiUtil/eventApi';
 import Aux from '../../../hoc/Auxilliary/Auxilliary';
+import TextField from '@material-ui/core/TextField';
+import { TimePicker } from 'material-ui-pickers';
+import { DatePicker } from 'material-ui-pickers';
+import format from 'date-fns/format'
 
 class CreateEvent extends Component {
     state = {
+        selectedStartDate: new Date(),
+        selectedEndDate: new Date(),
+        selectedStartTime: new Date(),
+        selectedEndTime: new Date(),
         eventDetailsForm: {
             name: {
                 title:  'Nimi:',
@@ -258,7 +266,11 @@ class CreateEvent extends Component {
             unlimitedParticipants: this.state.unlimitedParticipants,
             maxParticipants: this.state.maxParticipants,
             address: address,
-            categories: categories
+            categories: categories,
+            startDate: this.state.selectedStartDate,
+            startTime: this.state.selectedStartTime,
+            endDate: this.state.selectedEndDate,
+            endTime: this.state.selectedEndTime
         }).then(result => {
             console.log("Post was success! " + result)
         }).catch(error => {
@@ -382,6 +394,11 @@ class CreateEvent extends Component {
     }
 
     handleCategoryChange = (event) => {
+        console.log("time is currently " + this.state.selectedStartTime);
+        console.log("date is currently " + this.state.selectedStartDate);
+        let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        console.log("formatting to date " + this.state.selectedStartDate.toLocaleDateString('en-GB', options));
+        console.log("formatting to time " + this.state.selectedStartTime.toLocaleTimeString('en-GB', options));
         const incomingKey = event.target.value;
         if (!this.state.categoriesTouched) {
             this.changeCategoryWithFalse(incomingKey);
@@ -389,6 +406,22 @@ class CreateEvent extends Component {
         } else {
             this.changeCategory(incomingKey);
         }
+    };
+
+    handleStartDateChange = input => {
+        this.setState({ selectedStartDate: input });
+    };
+
+    handleStartTimeChange = input => {
+        this.setState({ selectedStartTime: input });
+    };
+
+    handleEndDateChange = input => {
+        this.setState({ selectedEndDate: input });
+    };
+
+    handleEndTimeChange = input => {
+        this.setState({ selectedEndTime: input });
     };
 
     render() {
@@ -450,6 +483,62 @@ class CreateEvent extends Component {
                         <Checkbox name="category7" value="miniatures" label=" Miniatuurimängud" onChange={this.handleCategoryChange}/>
                     </div>
                 </div>
+
+                    <div className="row">
+                        <div className="col-4">
+                            <div className={classes.FormRow}>
+                                <div style={{textAlign: "left", paddingLeft: "20px"}}>Toimumise aeg:</div>
+                            </div>
+                        </div>
+                        <div className="col-auto - variable width content">
+                            <DatePicker
+                                cancelLabel="TAGASI"
+                                label="Alguskuupäev:"
+                                okLabel="KINNITA"
+                                keyboard={true}
+                                minDate={Date.now()}
+                                invalidDateMessage="Palun kontrolli kuupäeva"
+                                value={this.state.selectedStartDate}
+                                onChange={this.handleStartDateChange}
+                                format={format(this.state.selectedStartDate, 'dd/MM/YYYY', { awareOfUnicodeTokens: true })}
+                            />
+                        </div>
+                        <div className="col-auto - variable width content">
+                            <TimePicker
+                                clearable
+                                ampm={false}
+                                label="Algusaeg:"
+                                value={this.state.selectedStartTime}
+                                onChange={this.handleStartTimeChange}
+                            />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-4">
+                        </div>
+                        <div className="col-auto - variable width content">
+                            <DatePicker
+                                cancelLabel="TAGASI"
+                                label="Lõppkuupäev:"
+                                okLabel="KINNITA"
+                                keyboard={true}
+                                minDate={Date.now()}
+                                invalidDateMessage="Palun kontrolli kuupäeva"
+                                value={this.state.selectedEndDate}
+                                onChange={this.handleEndDateChange}
+                                format={format(this.state.selectedEndDate, 'dd/MM/YYYY', { awareOfUnicodeTokens: true })}
+                            />
+                        </div>
+                        <div className="col-auto - variable width content">
+                            <TimePicker
+                                clearable
+                                ampm={false}
+                                label="Lõppaeg:"
+                                value={this.state.selectedEndTime}
+                                onChange={this.handleEndTimeChange}
+                            />
+                        </div>
+                    </div>
 
                 {/*<Button onClick={this.eventHandler()} disabled={!this.state.formIsValid}>EDASI</Button>*/}
 

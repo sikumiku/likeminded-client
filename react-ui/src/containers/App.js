@@ -5,6 +5,8 @@ import {ACCESS_TOKEN} from '../constants/index';
 import Routes from "../components/Routes";
 import AppNavbar from './AppNavbar/AppNavbar';
 import {withRouter} from 'react-router-dom';
+import DateFnsUtils from '@date-io/date-fns';
+import { MuiPickersUtilsProvider } from 'material-ui-pickers';
 
 class App extends Component {
 
@@ -73,8 +75,10 @@ class App extends Component {
 
         return (
             <div className="App">
-                <AppNavbar isAuthenticated={childProps.isAuthenticated} currentUser={childProps.currentUser} onLogOut={childProps.onLogOut}/>
-                <Routes childProps={childProps} />
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <AppNavbar isAuthenticated={childProps.isAuthenticated} currentUser={childProps.currentUser} onLogOut={childProps.onLogOut}/>
+                    <Routes childProps={childProps} />
+                </MuiPickersUtilsProvider>
             </div>
         )
     }
