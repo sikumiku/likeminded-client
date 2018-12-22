@@ -1,0 +1,33 @@
+.Button {
+    background-color: transparent;
+    cursor: pointer;
+    font: inherit;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.Button:first-of-type {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.Success {
+    color: #5C9210;
+}
+
+.Danger {
+    color: #944317;
+}
+
+.ActiveCategory {
+    color: black;
+    border: solid 3px #af3b62;
+    background: white;
+}
+
+.InactiveCategory {
+    color: black;
+    border: solid 1px black;
+    background: white;
+}

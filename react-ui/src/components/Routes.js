@@ -10,6 +10,7 @@ import Redirect from "react-router-dom/es/Redirect";
 import GroupHub from "../containers/Groups/GroupHub/GroupHub";
 import CreateGroup from "../containers/Groups/CreateGroup/CreateGroup";
 import PeopleHub from "../containers/People/PeopleHub/PeopleHub";
+import UserSettings from "../containers/UserSettings/UserSettings"
 
 export default ({childProps}) =>
     <Switch>
@@ -47,6 +48,13 @@ export default ({childProps}) =>
                 ?
                 <CreateGroup isAuthenticated={childProps.isAuthenticated} currentUser={childProps.currentUser}>
                 </CreateGroup>
+                : <Redirect to='/login'/>
+        )}/>
+        <Route exact path="/settings" render={(props) => (
+            childProps.isAuthenticated === true
+                ?
+                <UserSettings isAuthenticated={childProps.isAuthenticated} currentUser={childProps.currentUser}>
+                </UserSettings>
                 : <Redirect to='/login'/>
         )}/>
         <Route exact path="/login" render={Login}/>

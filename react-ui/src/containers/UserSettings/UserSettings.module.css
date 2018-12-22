@@ -1,0 +1,19 @@
+.SettingsForm {
+    margin-top: 20px;
+    box-sizing: border-box;
+    float: none;
+    width: 500px;
+}
+
+@media (max-width: 550px) {
+    .SettingsForm {
+        width: 350px;
+    }
+}
+
+
+@media (max-width: 400px) {
+    .SettingsForm {
+        width: 200px;
+    }
+}
