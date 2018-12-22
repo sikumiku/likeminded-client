@@ -37,13 +37,13 @@ const groupList = (props) => {
             }
         ];
         let categoryList = fullCategories.map(cat => {
-            return <img style={{left: "0px", width: '35px', height: '35px', margin: "0px 5px 0px 5px"}} src={window.location.origin + '/img/' + cat.name + '.svg'} alt={cat.description}/>
+            return <img key={cat.name} style={{left: "0px", width: '35px', height: '35px', margin: "0px 5px 0px 5px"}} src={window.location.origin + '/img/' + cat.name + '.svg'} alt={cat.description}/>
         });
 
         const categories = group.categories;
         categoryList = categories.length?categories.map(category => {
             let categoryName=category.name;
-            return <img style={{left: "0px", width: '35px', height: '35px', margin: "0px 5px 0px 5px"}} src={window.location.origin + '/img/' + categoryName + '.svg'} alt={category.description}/>;
+            return <img key={category.name}  style={{left: "0px", width: '35px', height: '35px', margin: "0px 5px 0px 5px"}} src={window.location.origin + '/img/' + categoryName + '.svg'} alt={category.description}/>;
         }):categoryList;
 
         return (

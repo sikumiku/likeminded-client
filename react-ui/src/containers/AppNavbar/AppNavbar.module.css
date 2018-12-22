@@ -1,0 +1,11 @@
+.ProfileImage {
+    width: 50px;
+    height: 50px;
+}
+
+.ProfileUsername {
+    font-size: 20px;
+    color: #9c3159;
+    font-weight: bold;
+    font-family: "Trebuchet MS", serif;
+}

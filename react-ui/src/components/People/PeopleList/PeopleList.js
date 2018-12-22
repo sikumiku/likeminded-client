@@ -37,18 +37,26 @@ const peopleList = (props) => {
             }
         ];
         let categoryList = fullCategories.map(cat => {
-            return <img style={{left: "0px", width: '35px', height: '35px', margin: "0px 5px 0px 5px"}} src={window.location.origin + '/img/' + cat.name + '.svg'} alt={cat.description}/>
+            return <img key={cat.name} style={{left: "0px", width: '35px', height: '35px', margin: "0px 5px 0px 5px"}} src={window.location.origin + '/img/' + cat.name + '.svg'} alt={cat.description}/>
         });
 
         const categories = person.categories;
         categoryList = categories.length?categories.map(category => {
             let categoryName=category.name;
-            return <img style={{left: "0px", width: '35px', height: '35px', margin: "0px 5px 0px 5px"}} src={window.location.origin + '/img/' + categoryName + '.svg'} alt={category.description}/>;
+            return <img key={category.name} style={{left: "0px", width: '35px', height: '35px', margin: "0px 5px 0px 5px"}} src={window.location.origin + '/img/' + categoryName + '.svg'} alt={category.description}/>;
         }):categoryList;
         let name = "";
         if (person.firstname && person.lastname) {
             name = person.firstname + " " + person.lastname
         }
+
+        const favoriteGames = person.favoriteGames;
+        let gameNames = "";
+        favoriteGames.forEach(favGame => {
+           gameNames += favGame.name;
+           gameNames += ", ";
+        });
+        gameNames = gameNames.substr(0, gameNames.length-2);
 
         return (
             <div style={{margin: "10px"}} className="card" key={person.id}>
@@ -62,6 +70,7 @@ const peopleList = (props) => {
                         </div>
                         <div className="col">
                             <p className="card-text">Nimi: {name}</p>
+                            <p className="card-text">Lemmikud mängud: {gameNames}</p>
                         </div>
                         <div className="col col-lg-3">
 
