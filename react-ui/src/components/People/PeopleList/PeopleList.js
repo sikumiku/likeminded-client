@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from 'react-bootstrap/es/Button';
+import { Button } from "reactstrap";
 import classes from './PeopleList.module.css';
 
 const peopleList = (props) => {

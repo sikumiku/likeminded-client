@@ -1,6 +1,6 @@
 import React from 'react';
 import Aux from '../../../../hoc/Auxilliary/Auxilliary';
-import Button from "react-bootstrap/es/Button";
+import { Button } from "reactstrap";
 import classes from "./EventCreationDetails.module.css"
 
 const eventCreationDetails = (props) => {

@@ -13,7 +13,6 @@ import Checkbox from '../../../components/UI/Checkbox/Checkbox';
 import GuestCountField from '../../../components/Events/EventCreationFlow/GuestCountField/GuestCountField';
 import {postEvent} from '../../../apiUtil/eventApi';
 import Aux from '../../../hoc/Auxilliary/Auxilliary';
-import TextField from '@material-ui/core/TextField';
 import { TimePicker } from 'material-ui-pickers';
 import { DatePicker } from 'material-ui-pickers';
 import format from 'date-fns/format'

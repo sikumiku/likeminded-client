@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import logo from '../../resources/LIKEMINDED_HEADING_LOGOV3.png';
-import navbarItemDivider from '../../resources/pinkcircle2.svg';
-import Aux from '../../hoc/Auxilliary/Auxilliary'
 import classes from './AppNavbar.module.css';
 
 class AppNavbar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isOpen: false
+            isOpen: false,
+            dropdownOpen: false
         };
         this.toggle = this.toggle.bind(this);
+        this.toggleDropdown = this.toggleDropdown.bind(this);
     }
     toggle() {
         this.setState({
@@ -20,13 +20,34 @@ class AppNavbar extends Component {
         });
     }
 
+    toggleDropdown() {
+        this.setState(prevState => ({
+            dropdownOpen: !prevState.dropdownOpen
+        }));
+    }
+
     handleLogout = (e) => {
         this.props.onLogOut();
     };
 
+    validateEmail(e) {
+        const emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const { validate } = this.state
+        if (emailRex.test(e.target.value)) {
+            validate.emailState = 'has-success'
+        } else {
+            validate.emailState = 'has-danger'
+        }
+        this.setState({ validate })
+    }
+
     render() {
 
-        const userName = this.props.currentUser.username;
+        let userName = "";
+
+        if (this.props.currentUser) {
+            userName = this.props.currentUser.username;
+        }
 
         return <Navbar expand="md">
             <NavbarBrand tag={Link} to="/">
@@ -38,25 +59,28 @@ class AppNavbar extends Component {
                     <NavItem>
                         <NavLink tag={Link} to="/events"><span id="navbar-link">ÜRITUSED</span></NavLink>
                     </NavItem>
-                    <img src={navbarItemDivider} alt="Navbar divider" />
                     <NavItem>
                         <NavLink tag={Link} to="/groups"><span id="navbar-link">GRUPID</span></NavLink>
                     </NavItem>
-                    <img src={navbarItemDivider} alt="Navbar divider" />
+
                     <NavItem>
                         <NavLink tag={Link} to="/people"><span id="navbar-link">LEIA INIMESI</span></NavLink>
                     </NavItem>
                     {this.props.isAuthenticated
-                        ? <Aux>
-                            <img className={classes.ProfileImage} src={window.location.origin + '/img/profile_image.png'} alt="Profile Image"/>
-                            <NavLink className={classes.ProfileUsername}>
-                                {userName.toUpperCase()}
-                            </NavLink>
-                            <NavItem>
-                                {/*Show downwards arrow here that opens up to LOGI V2LJA and SETTINGS*/}
-                                <NavLink href="#" onClick={this.handleLogout}><span id="navbar-link">LOGI VÄLJA</span></NavLink>
-                            </NavItem>
-                        </Aux>
+                        ?
+                            <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggleDropdown}>
+                                <DropdownToggle className={classes.DropdownToggle} caret>
+                                    <img className={classes.ProfileImage} src={window.location.origin + '/img/profile_image.png'} alt=""/>{userName.toUpperCase()}
+                                </DropdownToggle>
+                                <DropdownMenu right>
+                                    <DropdownItem>
+                                        <NavLink tag={Link} to="/settings"><span id="navbar-link">MINU PROFIIL</span></NavLink>
+                                    </DropdownItem>
+                                    <DropdownItem>
+                                        <NavLink tag={Link} to="/" onClick={this.handleLogout}><span id="navbar-link">VÄLJU</span></NavLink>
+                                    </DropdownItem>
+                                </DropdownMenu>
+                            </Dropdown>
                         :
                         <NavItem>
                             <NavLink tag={Link} to="/login"><span id="navbar-link">SISENE</span></NavLink>

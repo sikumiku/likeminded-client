@@ -1,7 +1,6 @@
 import React from 'react';
 import classes from './CategoryList.module.css'
-import ListGroup from "react-bootstrap/es/ListGroup";
-import ListGroupItem from "react-bootstrap/es/ListGroupItem";
+import { ListGroup , ListGroupItem }  from "reactstrap";
 
 const categoryList = (props) => {
     return (

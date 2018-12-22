@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { Button } from "reactstrap";
 import classes from "./Login.module.css"
 import {login} from '../../apiUtil/index';
 import {ACCESS_TOKEN} from '../../constants/index';
@@ -7,14 +7,15 @@ import {withRouter} from 'react-router-dom';
 
 import BodyBackgroundColor from 'react-body-backgroundcolor';
 import NavLink from "react-router-dom/es/NavLink";
-import Link from "react-router-dom/es/Link";
+import { Link } from 'react-router-dom';
 import {notification} from 'antd';
 import Redirect from "react-router-dom/es/Redirect";
+import {AvField, AvForm} from "availity-reactstrap-validation";
 
 class Login extends Component {
     constructor(props) {
         super(props);
-
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
             redirect: false,
             email: "",
@@ -34,8 +35,10 @@ class Login extends Component {
         });
     };
 
-    handleSubmit = event => {
+    handleSubmit(event, errors) {
         event.preventDefault();
+
+        this.setState({errors});
 
         login({
             email: this.state.email,
@@ -71,35 +74,39 @@ class Login extends Component {
             <BodyBackgroundColor backgroundColor='#eee2dc'>
                 <div className="container">
                     <div className={classes.Login}>
-                        <form onSubmit={this.handleSubmit}>
-                            <FormGroup controlId="email" bsSize="large">
-                                <ControlLabel>E-mail</ControlLabel>
-                                <FormControl
-                                    autoFocus
-                                    type="email"
-                                    value={this.state.email}
-                                    onChange={this.handleChange}
-                                />
-                            </FormGroup>
-                            <FormGroup controlId="password" bsSize="large">
-                                <ControlLabel>Salasõna</ControlLabel>
-                                <FormControl
-                                    value={this.state.password}
-                                    onChange={this.handleChange}
-                                    type="password"
-                                />
-                            </FormGroup>
+                        <AvForm onSubmit={this.handleSubmit}>
+                            <AvField
+                                autoFocus
+                                name="email"
+                                label="E-mail"
+                                value={this.state.email}
+                                onChange={this.handleChange}
+                                errorMessage="E-mail ei ole valiidne"
+                                validate={{email: true}}
+                            />
+                            <AvField
+                                type="password"
+                                name="password"
+                                label="Salasõna"
+                                value={this.state.password}
+                                onChange={this.handleChange}
+                                errorMessage="Salasõna peab olema vähemalt 8 tähemärki"
+                                validate={{
+                                    required: {value: true},
+                                    pattern: {value: '^[A-Za-z0-9]+$'},
+                                    minLength: {value: 8},
+                                    maxLength: {value: 20}
+                                }}
+                            />
                             <Button
                                 block
-                                bsSize="large"
-                                disabled={!this.validateForm()}
                                 type="submit"
                             >
-                                Sisene
+                                SISENE
                             </Button>
-                        </form>
+                        </AvForm>
                     </div>
-                    If not a user, click <NavLink tag={Link} to="/signup"><span id="navbar-link">here</span></NavLink> to sign up
+                    Kasutajakonto puudumisel loo uus konto <NavLink tag={Link} to="/signup"><span id="navbar-link">siin</span></NavLink>
                 </div>
             </BodyBackgroundColor>
         );

@@ -1,15 +1,17 @@
 import React, { Component } from "react";
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { Button } from "reactstrap";
 import classes from "./Signup.module.css"
 import {signup, login} from '../../apiUtil/index';
 import BodyBackgroundColor from 'react-body-backgroundcolor';
 import {ACCESS_TOKEN} from '../../constants/index';
 import {withRouter} from 'react-router-dom';
 import Redirect from "react-router-dom/es/Redirect";
+import {AvField, AvForm} from "availity-reactstrap-validation";
 
 class Signup extends Component {
     constructor(props) {
         super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
             email: '',
             password: '',
@@ -32,8 +34,10 @@ class Signup extends Component {
         });
     };
 
-    handleSubmit = event => {
+    handleSubmit(event, errors) {
         event.preventDefault();
+
+        this.setState({errors});
 
         signup({
             email: this.state.email,
@@ -70,42 +74,50 @@ class Signup extends Component {
             <BodyBackgroundColor backgroundColor='#eee2dc'>
                 <div className="container">
                     <div className={classes.Signup}>
-                        <form onSubmit={this.handleSubmit}>
-                            <FormGroup controlId="email" bsSize="large">
-                                <ControlLabel>E-mail</ControlLabel>
-                                <FormControl
-                                    autoFocus
-                                    type="email"
-                                    value={this.state.email}
-                                    onChange={this.handleChange}
-                                />
-                            </FormGroup>
-                            <FormGroup controlId="username" bsSize="large">
-                                <ControlLabel>Kasutajanimi</ControlLabel>
-                                <FormControl
-                                    autoFocus
-                                    type="username"
-                                    value={this.state.username}
-                                    onChange={this.handleChange}
-                                />
-                            </FormGroup>
-                            <FormGroup controlId="password" bsSize="large">
-                                <ControlLabel>Salasõna</ControlLabel>
-                                <FormControl
-                                    value={this.state.password}
-                                    onChange={this.handleChange}
-                                    type="password"
-                                />
-                            </FormGroup>
+                        <AvForm onSubmit={this.handleSubmit}>
+                            <AvField
+                                autoFocus
+                                name="email"
+                                label="E-mail"
+                                value={this.state.email}
+                                onChange={this.handleChange}
+                                errorMessage="E-mail ei ole valiidne"
+                                validate={{email: true}}
+                            />
+                            <AvField
+                                name="username"
+                                label="Kasutajanimi"
+                                value={this.state.username}
+                                onChange={this.handleChange}
+                                errorMessage="Kasutajanime pikkus võib olla 3-20 tähemärki"
+                                validate={{
+                                    required: {value: true},
+                                    pattern: {value: '^[A-Za-z0-9]+$'},
+                                    minLength: {value: 3},
+                                    maxLength: {value: 20}
+                                }}
+                            />
+                            <AvField
+                                type="password"
+                                name="password"
+                                label="Salasõna"
+                                value={this.state.password}
+                                onChange={this.handleChange}
+                                errorMessage="Salasõna peab olema vähemalt 8 tähemärki"
+                                validate={{
+                                    required: {value: true},
+                                    pattern: {value: '^[A-Za-z0-9]+$'},
+                                    minLength: {value: 8},
+                                    maxLength: {value: 20}
+                                }}
+                            />
                             <Button
                                 block
-                                bsSize="large"
-                                disabled={!this.validateForm()}
                                 type="submit"
                             >
-                                Loo kasutaja
+                                SISENE
                             </Button>
-                        </form>
+                        </AvForm>
                     </div>
                 </div>
             </BodyBackgroundColor>
