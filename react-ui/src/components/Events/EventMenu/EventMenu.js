@@ -11,7 +11,7 @@ const eventMenu = (props) => {
                     <NavigationItem link="/createEvent">
                         Loo uus üritus
                     </NavigationItem>
-                    <NavigationItem link="/" exact>
+                    <NavigationItem link="/myEvents" exact>
                         Minu üritused
                     </NavigationItem>
                 </ul>

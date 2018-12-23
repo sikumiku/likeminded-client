@@ -1,0 +1,11 @@
+.MyEventMenu {
+    color: #9c3159;
+    display: flex;
+    padding: 10px;
+    margin: 10px;
+    flex-flow: column;
+}
+
+ul {
+    text-align: left;
+}

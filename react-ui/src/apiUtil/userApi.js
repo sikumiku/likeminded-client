@@ -11,3 +11,11 @@ export function getFullCurrentUserData() {
 export function deleteUsersFavoriteGame(param) {
     return apiRequest('DELETE', '/api/v1/users/me/favoriteGames?gameName=' + param);
 }
+
+export function getMyEvents() {
+    return apiRequest('GET', '/api/v1/users/me/events');
+}
+
+export function getMyGroups() {
+    return apiRequest('GET', '/api/v1/users/me/groups');
+}

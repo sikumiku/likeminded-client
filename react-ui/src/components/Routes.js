@@ -11,6 +11,8 @@ import GroupHub from "../containers/Groups/GroupHub/GroupHub";
 import CreateGroup from "../containers/Groups/CreateGroup/CreateGroup";
 import PeopleHub from "../containers/People/PeopleHub/PeopleHub";
 import UserSettings from "../containers/UserSettings/UserSettings"
+import MyEvents from "../containers/Events/MyEvents/MyEvents";
+import MyGroups from "../containers/Groups/MyGroups/MyGroups";
 
 export default ({childProps}) =>
     <Switch>
@@ -48,6 +50,20 @@ export default ({childProps}) =>
                 ?
                 <CreateGroup isAuthenticated={childProps.isAuthenticated} currentUser={childProps.currentUser}>
                 </CreateGroup>
+                : <Redirect to='/login'/>
+        )}/>
+        <Route exact path="/myEvents" render={(props) => (
+            childProps.isAuthenticated === true
+                ?
+                <MyEvents isAuthenticated={childProps.isAuthenticated} currentUser={childProps.currentUser}>
+                </MyEvents>
+                : <Redirect to='/login'/>
+        )}/>
+        <Route exact path="/myGroups" render={(props) => (
+            childProps.isAuthenticated === true
+                ?
+                <MyGroups isAuthenticated={childProps.isAuthenticated} currentUser={childProps.currentUser}>
+                </MyGroups>
                 : <Redirect to='/login'/>
         )}/>
         <Route exact path="/settings" render={(props) => (
