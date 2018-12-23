@@ -99,6 +99,12 @@ const eventList = (props) => {
             postcode = address.postcode;
             countryCode = address.country;
         }
+
+        let maxParticipantNumberField = null;
+        if (!event.unlimitedParticipants) {
+            maxParticipantNumberField = <p className="card-text">Max osalejate arv: {event.maxParticipants}</p>
+        }
+
         return (
             <div style={{margin: "10px"}} className="card" key={event.id}>
                 <h4 id="panel-heading" className="card-header">
@@ -112,6 +118,7 @@ const eventList = (props) => {
                         <div className="col">
                             <p className="card-text">Kirjeldus: {event.description}</p>
                             <p className="card-text">Aadress: {addressLine} {city} {postcode} {countryCode}</p>
+                            {maxParticipantNumberField}
                         </div>
                         <div className="col col-lg-3">
                             <p className="card-text text-right" >
