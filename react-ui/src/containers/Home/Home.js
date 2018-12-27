@@ -4,26 +4,83 @@ import people_image from '../../resources/home-page-people.png';
 import logo_and_slogan from '../../resources/LogoandSlogan.png';
 import blog_spirit_island from '../../resources/spiritisland.png';
 import BodyBackgroundColor from 'react-body-backgroundcolor';
+import {
+    CarouselItem,
+    CarouselCaption
+} from 'reactstrap';
+import Carousel from '../../components/UI/Carousel/Carousel';
+
+const items = [
+    {
+        src: window.location.origin + '/img/reklaam1.png',
+        altText: 'Slide 1',
+        caption: 'Slide 1'
+    },
+    {
+        src: window.location.origin + '/img/reklaam2.png',
+        altText: 'Slide 2',
+        caption: 'Slide 2'
+    },
+    {
+        src: window.location.origin + '/img/reklaam3.png',
+        altText: 'Slide 3',
+        caption: 'Slide 3'
+    }
+];
 
 class Home extends Component {
     state = {
         isLoading: true,
         isAuthenticated: false,
-        user: undefined
+        user: undefined,
+        activeIndex: 0
     };
 
     async componentDidMount() {
-        // const response = await fetch('http://localhost:8080/api/v1/events');
-        // const body = await response.text();
-        // console.log(JSON.parse(body));
-        // if (body === '') {
-        //     this.setState(({isAuthenticated: false}))
-        // } else {
-        //     this.setState({isAuthenticated: true, user: JSON.parse(body)})
-        // }
+
     }
 
+    onExiting = () => {
+        this.animating = true;
+    };
+
+    onExited = () => {
+        this.animating = false;
+    };
+
+    next = () => {
+        if (this.animating) return;
+        const nextIndex = this.state.activeIndex === items.length - 1 ? 0 : this.state.activeIndex + 1;
+        this.setState({ activeIndex: nextIndex });
+    };
+
+    previous = () => {
+        if (this.animating) return;
+        const nextIndex = this.state.activeIndex === 0 ? items.length - 1 : this.state.activeIndex - 1;
+        this.setState({ activeIndex: nextIndex });
+    };
+
+    goToIndex = (newIndex) => {
+        if (this.animating) return;
+        this.setState({ activeIndex: newIndex });
+    };
+
     render() {
+
+        const { activeIndex } = this.state;
+
+        const slides = items.map((item) => {
+            return (
+                <CarouselItem
+                    onExiting={this.onExiting}
+                    onExited={this.onExited}
+                    key={item.src}
+                >
+                    <img src={item.src} alt={item.altText} />
+                    <CarouselCaption />
+                </CarouselItem>
+            );
+        });
 
         return (
             <BodyBackgroundColor backgroundColor='#eee2dc'>
@@ -46,32 +103,14 @@ class Home extends Component {
 
                                 <img className="img-fluid" src={logo_and_slogan} alt="Logo and slogan"/>
 
-                                <div id="carouselExampleIndicators" className="carousel slide my-4" data-ride="carousel">
-                                    <ol className="carousel-indicators">
-                                        <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
-                                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                                    </ol>
-                                    <div className="carousel-inner" role="listbox">
-                                        <div className="carousel-item active">
-                                            <img className="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide"/>
-                                        </div>
-                                        <div className="carousel-item">
-                                            <img className="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide"/>
-                                        </div>
-                                        <div className="carousel-item">
-                                            <img className="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide"/>
-                                        </div>
-                                    </div>
-                                    <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                                        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                                        <span className="sr-only">Previous</span>
-                                    </a>
-                                    <a className="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                                        <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                                        <span className="sr-only">Next</span>
-                                    </a>
-                                </div>
+                                <Carousel
+                                    activeIndex={activeIndex}
+                                    next={this.next}
+                                    previous={this.previous}
+                                    goToIndex={this.goToIndex}
+                                    slides={slides}
+                                    items={items}
+                                />
 
                                 <div className="row">
 

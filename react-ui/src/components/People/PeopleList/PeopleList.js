@@ -58,8 +58,6 @@ const peopleList = (props) => {
         });
         gameNames = gameNames.substr(0, gameNames.length-2);
 
-
-
         return (
             <div style={{margin: "10px"}} className="card" key={person.id}>
                 <h4 id="panel-heading" className="card-header">

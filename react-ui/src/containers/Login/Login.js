@@ -21,7 +21,8 @@ class Login extends Component {
             email: "",
             password: "",
             disabled: false,
-            submitted: false
+            submitted: false,
+            errorMessage: ""
         };
     }
 
@@ -37,7 +38,6 @@ class Login extends Component {
 
     handleSubmit(event, errors) {
         event.preventDefault();
-
         this.setState({errors});
 
         login({
@@ -48,17 +48,10 @@ class Login extends Component {
                 localStorage.setItem(ACCESS_TOKEN, response.accessToken);
                 this.setState({redirect: true});
             }).catch(error => {
-            console.log(error);
             if (error.status === 401) {
-                notification.error({
-                    message: 'Polling App',
-                    description: 'Your Username or Password is incorrect. Please try again!'
-                });
+                this.setState({errorMessage: "Sisselogimine ebaõnnestus. Palun proovi uuesti."});
             } else {
-                notification.error({
-                    message: 'Polling App',
-                    description: error.message || 'Sorry! Something went wrong. Please try again!'
-                });
+                this.setState({errorMessage: "Midagi läks valesti! Palun proovi uuesti."});
             }
         });
     };

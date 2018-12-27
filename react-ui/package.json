@@ -13,6 +13,9 @@
     "availity-reactstrap-validation": "^2.4.0",
     "bootstrap": "^4.2.1",
     "date-fns": "^2.0.0-alpha.26",
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.7.1",
+    "jest": "^23.6.0",
     "material-ui-pickers": "^2.0.4",
     "rc-time-picker": "^3.4.0",
     "react": "^16.7.0",
@@ -23,6 +26,7 @@
     "react-native": "^0.57.8",
     "react-native-timeline-listview": "^0.2.3",
     "react-router-dom": "4.3.1",
+    "react-test-renderer": "^16.7.0",
     "react-time-picker": "^3.1.1",
     "react-vertical-timeline": "^0.2.0",
     "reactstrap": "^6.5.0"
