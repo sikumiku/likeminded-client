@@ -1,0 +1,14 @@
+.FilterPanel {
+    color: #9c3159;
+    font-size: 20px;
+    font-weight: bold;
+    display: block;
+    padding-left: 10px;
+    margin: 5px 10px 0 10px;
+    font-family: "Trebuchet MS", serif;
+    text-align: left;
+}
+
+.FilterInput {
+    margin-bottom: 10px;
+}

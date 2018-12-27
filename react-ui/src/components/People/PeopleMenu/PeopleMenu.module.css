@@ -6,3 +6,7 @@
     flex-flow: column;
     text-align: left;
 }
+
+.CategoryList {
+    margin-top: 20px;
+}

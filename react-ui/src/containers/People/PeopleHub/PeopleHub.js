@@ -41,6 +41,36 @@ class PeopleHub extends Component {
             });
     }
 
+    filterByName = (nameFilter) => {
+        let people = this.state.cachedPeople;
+        people = people.filter((person) => {
+            let personName = "";
+            if (person.firstname && person.lastname) {
+                personName = person.firstname.toLowerCase() + person.lastname.toLowerCase()
+            }
+            return personName.indexOf(
+                nameFilter.toLowerCase()) !== -1
+        });
+        this.setState({
+            people
+        })
+    };
+
+    filterByLocation = (locationFilter) => {
+        let people = this.state.cachedPeople;
+        people = people.filter((person) => {
+            let city = "";
+            if (person.address && person.address.city) {
+                city = person.address.city.toLowerCase()
+            }
+            return city.indexOf(
+                locationFilter.toLowerCase()) !== -1
+        });
+        this.setState({
+            people
+        })
+    };
+
     onOptionClick = (optionObject) => {
         this.setState({ selectedOption: optionObject });
 
@@ -85,8 +115,8 @@ class PeopleHub extends Component {
                 <div>
                     <div className="container">
                         <div className="row">
-                            <PeopleMenu options={this.state.options} selectedOption={this.state.selectedOption} onOptionClick={this.onOptionClick}/>
-                            <PeopleList people={this.state.people} isLoading={this.state.isLoading}/>
+                            <PeopleMenu options={this.state.options} selectedOption={this.state.selectedOption} onOptionClick={this.onOptionClick} filterByName={this.filterByName} filterByLocation={this.filterByLocation}/>
+                            <PeopleList people={this.state.people} isLoading={this.state.isLoading} />
                         </div>
                     </div>
                 </div>
