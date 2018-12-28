@@ -19,6 +19,7 @@ import format from 'date-fns/format'
 
 class CreateEvent extends Component {
     state = {
+        picture: null,
         selectedStartDate: new Date(),
         selectedEndDate: new Date(),
         selectedStartTime: new Date(),
@@ -100,7 +101,7 @@ class CreateEvent extends Component {
                 touched: false
             },
             // this should be a dropdown in the end
-            country: {
+            countrycode: {
                 title:  'Riik:',
                 elementType: 'input',
                 elementConfig: {
@@ -256,7 +257,9 @@ class CreateEvent extends Component {
         address["addressLine"] = formData.addressLine;
         address["city"] = formData.city;
         address["postcode"] = formData.postcode;
-        address["country"] = formData.country;
+        address["countrycode"] = formData.countrycode;
+
+        console.log(this.state.picture);
 
         postEvent({
             name: formData.name,
@@ -269,7 +272,8 @@ class CreateEvent extends Component {
             startDate: this.state.selectedStartDate,
             startTime: this.state.selectedStartTime,
             endDate: this.state.selectedEndDate,
-            endTime: this.state.selectedEndTime
+            endTime: this.state.selectedEndTime,
+            picture: this.state.picture
         }).then(result => {
             console.log("Post was success! " + result)
         }).catch(error => {
@@ -278,7 +282,22 @@ class CreateEvent extends Component {
         this.props.history.push('/events');
     };
 
+    getBase64 = (file, cb) => {
+        let reader = new FileReader();
+        if (file && file[0].type.match('image.*')) {
+            reader.readAsDataURL(file[0]);
+            reader.onload = function () {
+                cb(reader.result)
+            };
+            reader.onerror = function (error) {
+                console.log('Error: ', error);
+            };
+        }
+    };
+
     triggerNext = (page) => {
+        console.log(this.state.picture);
+
         switch (page) {
             case "eventDetails":
                 this.setState({inEventDetails: false, inEventPicture: true, inEventConfirmation: false, currentPage: "eventPicture"});
@@ -423,6 +442,14 @@ class CreateEvent extends Component {
         this.setState({ selectedEndTime: input });
     };
 
+    onDrop = (picture) => {
+        this.getBase64(picture, (result) => {
+            this.setState({
+                picture: result
+            });
+        });
+    };
+
     render() {
 
         const formElementsArray = [];
@@ -555,8 +582,8 @@ class CreateEvent extends Component {
                         <div className="row">
                             <div className="col-lg-12 col-md-6 mb-4">
                                 {/*//TODO: amend onClick handler (confirmation page is for submitting event)*/}
-                                <EventCreationDetails form={form} activePage={this.state.currentPage} onClick={this.handleSubmit} hidden={!this.state.inEventDetails}/>
-                                <EventCreationPicture activePage={this.state.currentPage} onClick={this.triggerNext} hidden={!this.state.inEventPicture}/>
+                                <EventCreationDetails form={form} activePage={this.state.currentPage} onClick={this.triggerNext} hidden={!this.state.inEventDetails}/>
+                                <EventCreationPicture activePage={this.state.currentPage} onClick={this.handleSubmit} onDrop={this.onDrop} hidden={!this.state.inEventPicture}/>
                                 <EventCreationConfirmation activePage={this.state.currentPage} onClick={this.triggerNext} hidden={!this.state.inEventConfirmation}/>
                             </div>
                         </div>

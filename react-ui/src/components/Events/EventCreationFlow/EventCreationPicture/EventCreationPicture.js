@@ -2,18 +2,28 @@ import React from 'react';
 import { Button } from "reactstrap";
 import classes from './EventCreationPicture.module.css'
 import Aux from '../../../../hoc/Auxilliary/Auxilliary';
+import ImageUploader from 'react-images-upload';
 
 const eventCreationPicture = (props) => {
     let form = null;
-    let button = null;
 
     if (!props.hidden) {
         form = (
                 <div>
-                    <strong>Ürituse pildi üles laadimine</strong>
+                    <div className={classes.ImageTitle}>Ürituse pildi üles laadimine</div>
+                    <ImageUploader
+                        withIcon={true}
+                        buttonText='Vali pilt'
+                        onChange={props.onDrop}
+                        imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                        maxFileSize={5242880}
+                        withPreview
+                        singleImage
+                        label='Maksimum faili suurus: 5MB, aksepteeritud: jpg/png/gif'
+                    />
+                    <Button block onClick={props.onClick}>EDASI</Button>
                 </div>
         );
-        button = <Button block onClick={() => props.onClick(props.activePage)}>EDASI</Button>
     }
 
     return (
@@ -21,7 +31,6 @@ const eventCreationPicture = (props) => {
             <div className={classes.EventCreationPicture}>
                 {form}
             </div>
-            {button}
         </Aux>
     );
 };

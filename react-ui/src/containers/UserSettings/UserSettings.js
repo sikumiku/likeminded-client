@@ -67,14 +67,25 @@ class UserSettings extends Component {
         getFullCurrentUserData()
             .then(data => {
                 console.log(data);
+
+                let addressLine = "";
+                let city = "";
+                let postcode = "";
+                let countrycode = "";
+                if (data.address) {
+                    addressLine = data.address.addressLine;
+                    city = data.address.city;
+                    postcode = data.address.postcode;
+                    countrycode = data.address.countrycode;
+                }
                 this.setState({
                     username: data.username,
                     firstname: data.firstname,
                     lastname: data.lastname,
-                    addressLine: data.address.addressLine,
-                    city: data.address.city,
-                    postcode: data.address.postcode,
-                    countrycode: data.address.countrycode,
+                    addressLine: addressLine,
+                    city: city,
+                    postcode: postcode,
+                    countrycode: countrycode,
                     categories: data.categories,
                     allOptionOn: !data.categories.length,
                     isLoading: false});

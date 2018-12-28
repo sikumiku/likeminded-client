@@ -113,7 +113,7 @@ const eventList = (props) => {
                 <div id="panel-body" className="card-body">
                     <div className="row">
                         <div className="col col-lg-2">
-                            <img className="card-img-top" src={window.location.origin + '/img/event_placeholder.svg'} alt=""/>
+                            <img className="card-img-top" src={event.imageBase64} alt=""/>
                         </div>
                         <div className="col">
                             <p className="card-text">Kirjeldus: {event.description}</p>

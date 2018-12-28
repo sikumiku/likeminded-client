@@ -23,6 +23,7 @@
     "react-cookie": "3.0.4",
     "react-date-picker": "^7.1.1",
     "react-dom": "^16.7.0",
+    "react-images-upload": "^1.2.3",
     "react-native": "^0.57.8",
     "react-native-timeline-listview": "^0.2.3",
     "react-router-dom": "4.3.1",

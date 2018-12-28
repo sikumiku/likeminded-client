@@ -1,4 +1,15 @@
 .EventCreationPicture {
     width: 100%;
     align-items: center;
+    margin-top: 20px;
+}
+
+.ImageTitle {
+    color: #9c3159;
+    font-size: 20px;
+    font-weight: bold;
+    display: block;
+    padding-left: 10px;
+    margin: 5px 10px 0 10px;
+    font-family: "Trebuchet MS", serif;
 }

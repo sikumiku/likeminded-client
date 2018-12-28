@@ -33,9 +33,11 @@ class AppNavbar extends Component {
     render() {
 
         let userName = "";
+        let imagePath = "";
 
         if (this.props.currentUser) {
             userName = this.props.currentUser.username;
+            imagePath = this.props.currentUser.imageBase64;
         }
 
         return <Navbar expand="md">
@@ -59,7 +61,7 @@ class AppNavbar extends Component {
                         ?
                             <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggleDropdown}>
                                 <DropdownToggle className={classes.DropdownToggle} caret>
-                                    <img className={classes.ProfileImage} src={window.location.origin + '/img/profile_image.png'} alt=""/>{userName.toUpperCase()}
+                                    <img className={classes.ProfileImage} src={imagePath} alt=""/>{userName.toUpperCase()}
                                 </DropdownToggle>
                                 <DropdownMenu right>
                                     <DropdownItem>

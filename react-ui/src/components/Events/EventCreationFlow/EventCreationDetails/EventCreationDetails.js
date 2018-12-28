@@ -10,7 +10,7 @@ const eventCreationDetails = (props) => {
 
     if (!props.hidden) {
         form = props.form;
-        button = <Button block onClick={() => props.onClick()}>EDASI</Button>
+        button = <Button block onClick={() => props.onClick(props.activePage)}>EDASI</Button>
     }
 
     return (
