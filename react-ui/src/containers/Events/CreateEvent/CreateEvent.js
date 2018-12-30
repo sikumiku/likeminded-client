@@ -229,7 +229,6 @@ class CreateEvent extends Component {
             formData[formElementIdentifier] = this.state.eventDetailsForm[formElementIdentifier].value;
         }
 
-        console.log(formData);
         const categories = [];
         if (this.state.boardgames) {
             categories.push("BOARDGAMES");
@@ -258,8 +257,6 @@ class CreateEvent extends Component {
         address["city"] = formData.city;
         address["postcode"] = formData.postcode;
         address["countrycode"] = formData.countrycode;
-
-        console.log(this.state.picture);
 
         postEvent({
             name: formData.name,
@@ -452,6 +449,17 @@ class CreateEvent extends Component {
 
     render() {
 
+        const formData = {};
+        for (let formElementIdentifier in this.state.eventDetailsForm) {
+            formData[formElementIdentifier] = this.state.eventDetailsForm[formElementIdentifier].value;
+        }
+
+        const address = {};
+        address["addressLine"] = formData.addressLine;
+        address["city"] = formData.city;
+        address["postcode"] = formData.postcode;
+        address["countrycode"] = formData.countrycode;
+
         const formElementsArray = [];
         for (let key in this.state.eventDetailsForm) {
             formElementsArray.push({
@@ -581,10 +589,31 @@ class CreateEvent extends Component {
                     <div className="col-lg-9">
                         <div className="row">
                             <div className="col-lg-12 col-md-6 mb-4">
-                                {/*//TODO: amend onClick handler (confirmation page is for submitting event)*/}
                                 <EventCreationDetails form={form} activePage={this.state.currentPage} onClick={this.triggerNext} hidden={!this.state.inEventDetails}/>
-                                <EventCreationPicture activePage={this.state.currentPage} onClick={this.handleSubmit} onDrop={this.onDrop} hidden={!this.state.inEventPicture}/>
-                                <EventCreationConfirmation activePage={this.state.currentPage} onClick={this.triggerNext} hidden={!this.state.inEventConfirmation}/>
+                                <EventCreationPicture activePage={this.state.currentPage} onClick={this.triggerNext} onDrop={this.onDrop} hidden={!this.state.inEventPicture}/>
+                                <EventCreationConfirmation
+                                    activePage={this.state.currentPage}
+                                    onClick={this.handleSubmit}
+                                    hidden={!this.state.inEventConfirmation}
+                                    name={formData.name}
+                                    description={formData.description}
+                                    openToPublic={this.state.openToPublic}
+                                    unlimitedParticipants={this.state.unlimitedParticipants}
+                                    maxParticipants={this.state.maxParticipants}
+                                    address={address}
+                                    startDate={this.state.selectedStartDate}
+                                    startTime={this.state.selectedStartTime}
+                                    endDate={this.state.selectedEndDate}
+                                    endTime={this.state.selectedEndTime}
+                                    boardGameCat={this.state.boardgames}
+                                    cardGameCat={this.state.cardgames}
+                                    miniatureCat={this.state.miniatures}
+                                    classicalCat={this.state.classical}
+                                    roleplayingCat={this.state.roleplaying}
+                                    diceGameCat={this.state.dicegames}
+                                    tileGameCat={this.state.tilegames}
+                                    picture={this.state.picture}
+                                />
                             </div>
                         </div>
                     </div>

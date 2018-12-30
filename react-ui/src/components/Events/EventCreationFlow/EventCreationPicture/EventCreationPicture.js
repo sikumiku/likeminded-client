@@ -21,7 +21,7 @@ const eventCreationPicture = (props) => {
                         singleImage
                         label='Maksimum faili suurus: 5MB, aksepteeritud: jpg/png/gif'
                     />
-                    <Button block onClick={props.onClick}>EDASI</Button>
+                    <Button block onClick={() => props.onClick(props.activePage)}>EDASI</Button>
                 </div>
         );
     }

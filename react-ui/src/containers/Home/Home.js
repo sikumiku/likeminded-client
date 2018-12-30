@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import people_image from '../../resources/home-page-people.png';
+import people_image from '../../resources/boardgameintroimg.png';
 import logo_and_slogan from '../../resources/LogoandSlogan.png';
 import blog_spirit_island from '../../resources/spiritisland.png';
 import BodyBackgroundColor from 'react-body-backgroundcolor';
@@ -13,18 +13,18 @@ import Carousel from '../../components/UI/Carousel/Carousel';
 const items = [
     {
         src: window.location.origin + '/img/reklaam1.png',
-        altText: 'Slide 1',
-        caption: 'Slide 1'
+        altText: 'Lorien',
+        caption: 'Lorien'
     },
     {
         src: window.location.origin + '/img/reklaam2.png',
-        altText: 'Slide 2',
-        caption: 'Slide 2'
+        altText: 'Brain Games',
+        caption: 'Brain Games'
     },
     {
         src: window.location.origin + '/img/reklaam3.png',
-        altText: 'Slide 3',
-        caption: 'Slide 3'
+        altText: 'Meeple Union',
+        caption: 'Meeple Union'
     }
 ];
 
