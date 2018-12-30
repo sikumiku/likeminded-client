@@ -13,18 +13,15 @@ import Carousel from '../../components/UI/Carousel/Carousel';
 const items = [
     {
         src: window.location.origin + '/img/reklaam1.png',
-        altText: 'Lorien',
-        caption: 'Lorien'
+        altText: 'Lorien'
     },
     {
         src: window.location.origin + '/img/reklaam2.png',
-        altText: 'Brain Games',
-        caption: 'Brain Games'
+        altText: 'Brain Games'
     },
     {
         src: window.location.origin + '/img/reklaam3.png',
-        altText: 'Meeple Union',
-        caption: 'Meeple Union'
+        altText: 'Meeple Union'
     }
 ];
 
@@ -77,7 +74,6 @@ class Home extends Component {
                     key={item.src}
                 >
                     <img src={item.src} alt={item.altText} />
-                    <CarouselCaption />
                 </CarouselItem>
             );
         });

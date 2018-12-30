@@ -18,11 +18,7 @@ export default ({childProps}) =>
     <Switch>
         <Route exact path="/" render={Home}/>
         <Route exact path="/events" render={(props) => (
-            childProps.isAuthenticated === true
-                ?
-                <EventHub isAuthenticated={childProps.isAuthenticated} currentUser={childProps.currentUser}>
-                </EventHub>
-                : <Redirect to='/login'/>
+                <EventHub isAuthenticated={childProps.isAuthenticated} currentUser={childProps.currentUser}/>
         )}/>
         <Route exact path="/groups" render={(props) => (
             childProps.isAuthenticated === true
