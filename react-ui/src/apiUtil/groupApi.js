@@ -15,3 +15,7 @@ export function putGroup(id, request) {
 export function deleteGroup(id) {
     return apiRequest('DELETE', '/api/v1/groups/' + id);
 }
+
+export function addUsersToGroup(id, userIds) {
+    return apiRequest('PUT', '/api/v1/groups/' + id + '/invite?userIds=' + userIds);
+}

@@ -1,9 +1,9 @@
-.GroupCreationConfirmation {
+.GroupCreationInvite {
     width: 100%;
     align-items: center;
 }
 
-.ImageTitle {
+.Title {
     color: #9c3159;
     font-size: 20px;
     font-weight: bold;
@@ -44,11 +44,12 @@
     margin-left: 10px;
 }
 
-.CategoryTitle {
-    margin-left: 10px;
+.UserImage {
+    height: 20px;
+    width: 15px;
+    margin-left: 5px;
 }
 
-.Picture {
-    height: 125px;
-    width: 125px;
+.CategoryTitle {
+    margin-left: 10px;
 }

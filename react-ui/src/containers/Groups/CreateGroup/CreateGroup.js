@@ -4,13 +4,15 @@ import BodyBackgroundColor from 'react-body-backgroundcolor';
 import Input from '../../../components/UI/Input/Input';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import classes from './CreateGroup.module.css';
-import {postGroup} from '../../../apiUtil/groupApi';
+import {addUsersToGroup, postGroup} from '../../../apiUtil/groupApi';
 import Aux from '../../../hoc/Auxilliary/Auxilliary';
 import GroupCreationDetails from "../../../components/Groups/GroupCreationFlow/GroupCreationDetails/GroupCreationDetails";
 import GroupCreationPicture from "../../../components/Groups/GroupCreationFlow/GroupCreationPicture/GroupCreationPicture";
 import GroupCreationConfirmation from "../../../components/Groups/GroupCreationFlow/GroupCreationConfirmation/GroupCreationConfirmation";
 import GroupCreationTracker from "../../../components/Groups/GroupCreationTracker/GroupCreationTracker";
 import Checkbox from "../../../components/UI/Checkbox/Checkbox";
+import GroupCreationInvite from "../../../components/Groups/GroupCreationFlow/GroupCreationInvite/GroupCreationInvite";
+import {getPeople} from "../../../apiUtil/peopleApi";
 
 class CreateGroup extends Component {
     state = {
@@ -46,6 +48,7 @@ class CreateGroup extends Component {
                 touched: false
             }
         },
+        picture: null,
         categories: [],
         boardgames: true,
         cardgames: true,
@@ -58,10 +61,31 @@ class CreateGroup extends Component {
         inGroupDetails: true,
         inGroupPicture: false,
         inGroupConfirmation: false,
+        inGroupInvite: false,
         currentPage: "groupDetails",
         formIsValid: false,
-        loading: false
+        loading: false,
+        people: null,
+        cachedPeople: null,
+        createdGroupId: null
     };
+
+    componentDidMount() {
+        this.setState({isLoading: true});
+
+        getPeople()
+            .then(data => {
+                this.setState({isLoading: false});
+                let fetchedPeople = [];
+                for (let key in data) {
+                    fetchedPeople.push({
+                        ...data[key],
+                        active: false
+                    })
+                }
+                this.setState({cachedPeople: fetchedPeople, people: fetchedPeople});
+            });
+    }
 
     inputChangedHandler = (event, inputIdentifier) => {
         const updatedGroupDetailsForm = {
@@ -140,28 +164,54 @@ class CreateGroup extends Component {
         postGroup({
             name: formData.name,
             description: formData.description,
-            categories: categories
+            categories: categories,
+            picture: this.state.picture
         }).then(result => {
             console.log("Post was success! " + result)
+            this.setState({createdGroupId: result.id});
         }).catch(error => {
             console.log(error);
         });
-        this.props.history.push('/groups');
+        this.triggerNext("groupConfirmation");
+    };
+
+    getBase64 = (file, cb) => {
+        let reader = new FileReader();
+        if (file && file[0].type.match('image.*')) {
+            reader.readAsDataURL(file[0]);
+            reader.onload = function () {
+                cb(reader.result)
+            };
+            reader.onerror = function (error) {
+                console.log('Error: ', error);
+            };
+        }
+    };
+
+    onDrop = (picture) => {
+        this.getBase64(picture, (result) => {
+            this.setState({
+                picture: result
+            });
+        });
     };
 
     triggerNext = (page) => {
         switch (page) {
             case "groupDetails":
-                this.setState({inGroupDetails: false, inGroupPicture: true, inGroupConfirmation: false, currentPage: "groupPicture"});
+                this.setState({inGroupDetails: false, inGroupPicture: true, inGroupConfirmation: false, inGroupInvite: false, currentPage: "groupPicture"});
                 break;
-            case "eventPicture":
-                this.setState({inGroupPicture: false, inGroupConfirmation: true, inGroupDetails: false, currentPage: "groupConfirmation"});
+            case "groupPicture":
+                this.setState({inGroupPicture: false, inGroupConfirmation: true, inGroupDetails: false, inGroupInvite: false, currentPage: "groupConfirmation"});
                 break;
-            case "eventConfirmation":
-                this.setState({inGroupConfirmation: false, inGroupDetails: true, inGroupPicture: false, currentPage: "groupDetails"});
+            case "groupConfirmation":
+                this.setState({inGroupConfirmation: false, inGroupInvite: true, inGroupPicture: false, inGroupDetails: false, currentPage: "groupInvite"});
+                break;
+            case "groupInvite":
+                this.setState({inGroupInvite: false, inGroupDetails: true, inGroupPicture: false, inGroupConfirmation: false, currentPage: "groupDetails"});
                 break;
             default:
-                this.setState({inGroupConfirmation: false, inGroupPicture: false, inGroupDetails: true, currentPage: "groupDetails"});
+                this.setState({inGroupConfirmation: false, inGroupPicture: false, inGroupDetails: true, inGroupInvite: false, currentPage: "groupDetails"});
         }
     };
 
@@ -273,6 +323,50 @@ class CreateGroup extends Component {
         }
     };
 
+    filterByName = (nameFilter) => {
+        let people = this.state.cachedPeople;
+        people = people.filter((person) => {
+            let personName = "";
+            if (person.firstname && person.lastname) {
+                personName = person.firstname.toLowerCase() + person.lastname.toLowerCase()
+            }
+            return personName.indexOf(
+                nameFilter.toLowerCase()) !== -1
+        });
+        this.setState({
+            people
+        })
+    };
+
+    userClicked = (user) => {
+        let users = [];
+        let updatedUsers = [...this.state.cachedPeople];
+
+        updatedUsers.forEach(updatedUser => {
+            if (updatedUser.id === user.id) {
+                updatedUser.active = !user.active;
+            }
+            users.push(updatedUser);
+        });
+
+        this.setState({people: users})
+    };
+
+    submitUsers = () => {
+        let userIds = "";
+        this.state.people.forEach(person => {
+            if (person.active) {
+                userIds = userIds.concat(person.id + ",")
+            }
+        });
+        userIds = userIds.substr(0, userIds.length-1);
+
+        addUsersToGroup(this.state.createdGroupId, userIds)
+            .then(data => {
+                console.log("Users added successfully! " + data);
+            });
+    };
+
     render() {
 
         const formElementsArray = [];
@@ -322,6 +416,11 @@ class CreateGroup extends Component {
             form = <Spinner />;
         }
 
+        const formData = {};
+        for (let formElementIdentifier in this.state.groupDetailsForm) {
+            formData[formElementIdentifier] = this.state.groupDetailsForm[formElementIdentifier].value;
+        }
+
         return <BodyBackgroundColor backgroundColor='#eee2dc'>
             <div className="container">
                 <div className="row">
@@ -330,9 +429,31 @@ class CreateGroup extends Component {
                         <div className="row">
                             <div className="col-lg-12 col-md-6 mb-4">
                                 {/*//TODO: amend onClick handler (confirmation page is for submitting event)*/}
-                                <GroupCreationDetails form={form} activePage={this.state.currentPage} onClick={this.handleSubmit} hidden={!this.state.inGroupDetails}/>
-                                <GroupCreationPicture activePage={this.state.currentPage} onClick={this.triggerNext} hidden={!this.state.inGroupPicture}/>
-                                <GroupCreationConfirmation activePage={this.state.currentPage} onClick={this.triggerNext} hidden={!this.state.inGroupConfirmation}/>
+                                <GroupCreationDetails form={form} activePage={this.state.currentPage} onClick={this.triggerNext} hidden={!this.state.inGroupDetails}/>
+                                <GroupCreationPicture activePage={this.state.currentPage} onDrop={this.onDrop} onClick={this.triggerNext} hidden={!this.state.inGroupPicture}/>
+                                <GroupCreationConfirmation
+                                    activePage={this.state.currentPage}
+                                    onClick={this.handleSubmit}
+                                    hidden={!this.state.inGroupConfirmation}
+                                    name={formData.name}
+                                    description={formData.description}
+                                    boardGameCat={this.state.boardgames}
+                                    cardGameCat={this.state.cardgames}
+                                    miniatureCat={this.state.miniatures}
+                                    classicalCat={this.state.classical}
+                                    roleplayingCat={this.state.roleplaying}
+                                    diceGameCat={this.state.dicegames}
+                                    tileGameCat={this.state.tilegames}
+                                    picture={this.state.picture}
+                                />
+                                <GroupCreationInvite
+                                    filterByName={this.filterByName}
+                                    people={this.state.people}
+                                    activePage={this.state.currentPage}
+                                    onClick={this.submitUsers}
+                                    hidden={!this.state.inGroupInvite}
+                                    userClicked={this.userClicked}
+                                />
                             </div>
                         </div>
                     </div>

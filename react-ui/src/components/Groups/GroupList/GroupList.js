@@ -46,6 +46,11 @@ const groupList = (props) => {
             return <img key={category.name}  style={{left: "0px", width: '35px', height: '35px', margin: "0px 5px 0px 5px"}} src={window.location.origin + '/img/' + categoryName + '.svg'} alt={category.description}/>;
         }):categoryList;
 
+        let image = window.location.origin + '/img/event_placeholder.svg';
+        if (group.imageBase64) {
+            image = group.imageBase64;
+        }
+
         return (
             <div style={{margin: "10px"}} className="card" key={group.id}>
                 <h4 id="panel-heading" className="card-header">
@@ -54,7 +59,7 @@ const groupList = (props) => {
                 <div id="panel-body" className="card-body">
                     <div className="row">
                         <div className="col col-lg-2">
-                            <img className="card-img-top" src={window.location.origin + '/img/event_placeholder.svg'} alt=""/>
+                            <img className="card-img-top" src={image} alt=""/>
                         </div>
                         <div className="col">
                             <p className="card-text">Kirjeldus: {group.description}</p>
