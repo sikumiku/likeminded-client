@@ -1,0 +1,55 @@
+.EventCreationInvite {
+    width: 100%;
+    align-items: center;
+}
+
+.Title {
+    color: #9c3159;
+    font-size: 20px;
+    font-weight: bold;
+    display: block;
+    padding-left: 10px;
+    margin: 5px 10px 0 10px;
+    font-family: "Trebuchet MS", serif;
+}
+
+.ConfirmationPanel {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    float: inherit;
+    margin: 10px;
+    max-width: 500px;
+    padding: 20px;
+}
+
+.Container {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}
+
+.CategoryImage {
+    height: 25px;
+    width: 25px;
+    margin-left: 10px;
+}
+
+.UserImage {
+    height: 20px;
+    width: 15px;
+    margin-left: 5px;
+}
+
+.CategoryTitle {
+    margin-left: 10px;
+}

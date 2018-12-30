@@ -123,48 +123,48 @@ const userSettingsForm = (props) => {
             <div>Lemmikud mängukategooriad:</div>
             <div className="row">
                 <div className="col-auto - variable width content">
-                    <CustomButton btnType={props.allgames?"ActiveCategory":"InactiveCategory"} categoryClicked={(e) => props.onCategoryClick("ALL")}>
+                    <CustomButton btnType={props.allgames?"ActiveCategory":"InactiveCategory"} buttonClicked={(e) => props.onCategoryClick("ALL")}>
                         <span className={classes.CategoryTitleAll}>KÕIK</span>
                     </CustomButton>
                 </div>
                 <div className="col-auto - variable width content">
-                    <CustomButton btnType={props.boardgames?"ActiveCategory":"InactiveCategory"} categoryClicked={(e) => props.onCategoryClick("BOARDGAMES")}>
+                    <CustomButton btnType={props.boardgames?"ActiveCategory":"InactiveCategory"} buttonClicked={(e) => props.onCategoryClick("BOARDGAMES")}>
                         <img className={classes.CategoryImage} src={window.location.origin + '/img/BOARDGAMES.svg'} alt=""/>
                         <span className={classes.CategoryTitle}>LAUAMÄNGUD</span>
                     </CustomButton>
                 </div>
                 <div className="col-auto - variable width content">
-                    <CustomButton btnType={props.cardgames?"ActiveCategory":"InactiveCategory"} categoryClicked={(e) => props.onCategoryClick("CARDGAMES")}>
+                    <CustomButton btnType={props.cardgames?"ActiveCategory":"InactiveCategory"} buttonClicked={(e) => props.onCategoryClick("CARDGAMES")}>
                         <img className={classes.CategoryImage} src={window.location.origin + '/img/CARDGAMES.svg'} alt=""/>
                         <span className={classes.CategoryTitle}>KAARDIMÄNGUD</span>
                     </CustomButton>
                 </div>
                 <div className="col-auto - variable width content">
-                    <CustomButton btnType={props.classical?"ActiveCategory":"InactiveCategory"} categoryClicked={(e) => props.onCategoryClick("CLASSICAL")}>
+                    <CustomButton btnType={props.classical?"ActiveCategory":"InactiveCategory"} buttonClicked={(e) => props.onCategoryClick("CLASSICAL")}>
                         <img className={classes.CategoryImage} src={window.location.origin + '/img/CLASSICAL.svg'} alt=""/>
                         <span className={classes.CategoryTitle}>KLASSIKALISED MÄNGUD</span>
                     </CustomButton>
                 </div>
                 <div className="col-auto - variable width content">
-                    <CustomButton btnType={props.dicegames?"ActiveCategory":"InactiveCategory"} categoryClicked={(e) => props.onCategoryClick("DICEGAMES")}>
+                    <CustomButton btnType={props.dicegames?"ActiveCategory":"InactiveCategory"} buttonClicked={(e) => props.onCategoryClick("DICEGAMES")}>
                         <img className={classes.CategoryImage} src={window.location.origin + '/img/DICEGAMES.svg'} alt=""/>
                         <span className={classes.CategoryTitle}>TÄRINGUMÄNGUD</span>
                     </CustomButton>
                 </div>
                 <div className="col-auto - variable width content">
-                    <CustomButton btnType={props.miniatures?"ActiveCategory":"InactiveCategory"} categoryClicked={(e) => props.onCategoryClick("MINIATURES")}>
+                    <CustomButton btnType={props.miniatures?"ActiveCategory":"InactiveCategory"} buttonClicked={(e) => props.onCategoryClick("MINIATURES")}>
                         <img className={classes.CategoryImage} src={window.location.origin + '/img/MINIATURES.svg'} alt=""/>
                         <span className={classes.CategoryTitle}>MINIATUURIMÄNGUD</span>
                     </CustomButton>
                 </div>
                 <div className="col-auto - variable width content">
-                    <CustomButton btnType={props.roleplaying?"ActiveCategory":"InactiveCategory"} categoryClicked={(e) => props.onCategoryClick("ROLEPLAYING")}>
+                    <CustomButton btnType={props.roleplaying?"ActiveCategory":"InactiveCategory"} buttonClicked={(e) => props.onCategoryClick("ROLEPLAYING")}>
                         <img className={classes.CategoryImage} src={window.location.origin + '/img/ROLEPLAYING.svg'} alt=""/>
                         <span className={classes.CategoryTitle}>ROLLIMÄNGUD</span>
                     </CustomButton>
                 </div>
                 <div className="col-auto - variable width content">
-                    <CustomButton btnType={props.tilegames?"ActiveCategory":"InactiveCategory"} categoryClicked={(e) => props.onCategoryClick("TILEGAMES")}>
+                    <CustomButton btnType={props.tilegames?"ActiveCategory":"InactiveCategory"} buttonClicked={(e) => props.onCategoryClick("TILEGAMES")}>
                         <img className={classes.CategoryImage} src={window.location.origin + '/img/TILEGAMES.svg'} alt=""/>
                         <span className={classes.CategoryTitle}>"TILE" MÄNGUD</span>
                     </CustomButton>

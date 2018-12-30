@@ -11,11 +11,14 @@ import classes from './CreateEvent.module.css';
 import RadioBooleanInput from '../../../components/UI/RadioInput/RadioInput';
 import Checkbox from '../../../components/UI/Checkbox/Checkbox';
 import GuestCountField from '../../../components/Events/EventCreationFlow/GuestCountField/GuestCountField';
-import {postEvent} from '../../../apiUtil/eventApi';
+import {addUsersToEvent, postEvent} from '../../../apiUtil/eventApi';
 import Aux from '../../../hoc/Auxilliary/Auxilliary';
 import { TimePicker } from 'material-ui-pickers';
 import { DatePicker } from 'material-ui-pickers';
 import format from 'date-fns/format'
+import EventCreationInvite from "../../../components/Events/EventCreationFlow/EventCreationInvite/EventCreationInvite";
+import {getMyGroups} from "../../../apiUtil/userApi";
+import {getPeople} from "../../../apiUtil/peopleApi";
 
 class CreateEvent extends Component {
     state = {
@@ -134,10 +137,45 @@ class CreateEvent extends Component {
         inEventDetails: true,
         inEventPicture: false,
         inEventConfirmation: false,
+        inEventInvite: false,
         currentPage: "eventDetails",
         formIsValid: false,
-        loading: false
+        loading: false,
+        myGroups: null,
+        people: null,
+        cachedPeople: null,
+        createdEventId: null
     };
+
+    componentDidMount() {
+        this.setState({isLoading: true});
+
+        getMyGroups()
+            .then(data => {
+                this.setState({isLoading: false});
+                let fetchedGroups = [];
+                for (let key in data) {
+                    fetchedGroups.push({
+                        ...data[key],
+                        active: false
+                    })
+                }
+                this.setState({myGroups: fetchedGroups});
+            });
+
+        getPeople()
+            .then(data => {
+                this.setState({isLoading: false});
+                let fetchedPeople = [];
+                for (let key in data) {
+                    fetchedPeople.push({
+                        ...data[key],
+                        active: false
+                    })
+                }
+                this.setState({cachedPeople: fetchedPeople, people: fetchedPeople});
+            });
+    }
 
     handleOptionChange = (event, name) => {
         switch(name) {
@@ -159,6 +197,21 @@ class CreateEvent extends Component {
                 this.setState({unlimitedParticipants: true});
                 this.setState({openToPublic: true});
         }
+    };
+
+    filterByName = (nameFilter) => {
+        let people = this.state.cachedPeople;
+        people = people.filter((person) => {
+            let personName = "";
+            if (person.firstname && person.lastname) {
+                personName = person.firstname.toLowerCase() + person.lastname.toLowerCase()
+            }
+            return personName.indexOf(
+                nameFilter.toLowerCase()) !== -1
+        });
+        this.setState({
+            people
+        })
     };
 
     inputChangedHandler = (event, inputIdentifier) => {
@@ -273,10 +326,11 @@ class CreateEvent extends Component {
             picture: this.state.picture
         }).then(result => {
             console.log("Post was success! " + result)
+            this.setState({createdEventId: result.id});
         }).catch(error => {
             console.log(error);
         });
-        this.props.history.push('/events');
+        this.triggerNext("eventConfirmation");
     };
 
     getBase64 = (file, cb) => {
@@ -293,20 +347,22 @@ class CreateEvent extends Component {
     };
 
     triggerNext = (page) => {
-        console.log(this.state.picture);
 
         switch (page) {
             case "eventDetails":
-                this.setState({inEventDetails: false, inEventPicture: true, inEventConfirmation: false, currentPage: "eventPicture"});
+                this.setState({inEventDetails: false, inEventPicture: true, inEventConfirmation: false, inEventInvite: false, currentPage: "eventPicture"});
                 break;
             case "eventPicture":
-                this.setState({inEventPicture: false, inEventConfirmation: true, inEventDetails: false, currentPage: "eventConfirmation"});
+                this.setState({inEventPicture: false, inEventConfirmation: true, inEventDetails: false, inEventInvite: false, currentPage: "eventConfirmation"});
                 break;
             case "eventConfirmation":
-                this.setState({inEventConfirmation: false, inEventDetails: true, inEventPicture: false, currentPage: "eventDetails"});
+                this.setState({inEventConfirmation: false, inEventInvite: true, inEventPicture: false, inEventDetails: false, currentPage: "eventInvite"});
+                break;
+            case "eventInvite":
+                this.setState({inEventInvite: false, inEventDetails: true, inEventPicture: false, inEventConfirmation: false, currentPage: "eventDetails"});
                 break;
             default:
-                this.setState({inEventConfirmation: false, inEventPicture: false, inEventDetails: true, currentPage: "eventDetails"});
+                this.setState({inEventConfirmation: false, inEventPicture: false, inEventDetails: true, inEventInvite: false, currentPage: "eventDetails"});
         }
     };
 
@@ -445,6 +501,56 @@ class CreateEvent extends Component {
                 picture: result
             });
         });
+    };
+
+    groupClicked = (group) => {
+        let groups = [];
+        let updatedGroups = [...this.state.myGroups];
+
+        updatedGroups.forEach(updatedGroup => {
+            if (updatedGroup.id === group.id) {
+                updatedGroup.active = !group.active;
+            }
+            groups.push(updatedGroup);
+        });
+
+        this.setState({myGroups: groups})
+    };
+
+    userClicked = (user) => {
+        let users = [];
+        let updatedUsers = [...this.state.cachedPeople];
+
+        updatedUsers.forEach(updatedUser => {
+            if (updatedUser.id === user.id) {
+                updatedUser.active = !user.active;
+            }
+            users.push(updatedUser);
+        });
+
+        this.setState({people: users})
+    };
+
+    submitUsersAndGroups = () => {
+        let userIds = "";
+        let groupIds = "";
+        this.state.people.forEach(person => {
+            if (person.active) {
+                userIds = userIds.concat(person.id + ",")
+            }
+        });
+        userIds = userIds.substr(0, userIds.length-1);
+        this.state.myGroups.forEach(group => {
+            if (group.active) {
+                groupIds = groupIds.concat(group.id + ",")
+            }
+        });
+        groupIds = groupIds.substr(0, groupIds.length-1);
+
+        addUsersToEvent(this.state.createdEventId, userIds, groupIds)
+            .then(data => {
+                console.log("Users added successfully! " + data);
+            });
     };
 
     render() {
@@ -613,6 +719,16 @@ class CreateEvent extends Component {
                                     diceGameCat={this.state.dicegames}
                                     tileGameCat={this.state.tilegames}
                                     picture={this.state.picture}
+                                />
+                                <EventCreationInvite
+                                    filterByName={this.filterByName}
+                                    people={this.state.people}
+                                    groups={this.state.myGroups}
+                                    activePage={this.state.currentPage}
+                                    onClick={this.submitUsersAndGroups}
+                                    hidden={!this.state.inEventInvite}
+                                    groupClicked={this.groupClicked}
+                                    userClicked={this.userClicked}
                                 />
                             </div>
                         </div>

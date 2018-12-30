@@ -8,10 +8,6 @@ const eventCreationConfirmation = (props) => {
     let form = null;
     let button = null;
 
-    console.log(
-        "boardgames: " + props.boardgames + " and cardgames: " + props.cardgames
-    );
-
     if (!props.hidden) {
         let maxParticipants = null;
         if (!props.unlimitedParticipants) {

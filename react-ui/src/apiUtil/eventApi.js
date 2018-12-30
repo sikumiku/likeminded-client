@@ -15,3 +15,7 @@ export function putEvent(id, request) {
 export function deleteEvent(id) {
     return apiRequest('DELETE', '/api/v1/events/' + id);
 }
+
+export function addUsersToEvent(id, userIds, groupIds) {
+    return apiRequest('PUT', '/api/v1/events/' + id + '/invite?userIds=' + userIds + '&groupIds=' + groupIds);
+}
