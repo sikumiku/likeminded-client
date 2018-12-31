@@ -64,7 +64,7 @@ class GroupCreationTracker extends Component {
                     </div>
                     <div className={classes.row}>
                         <div className={classes.timeline}>
-                            <div className={classes.dot} />
+                            {this.props.activePage !== "groupInvite"?<div className={classes.dot} />:<div className={classes.dotActive} /> }
                             <div className={classes.line}/>
                         </div>
                         <div className={classes.content}>

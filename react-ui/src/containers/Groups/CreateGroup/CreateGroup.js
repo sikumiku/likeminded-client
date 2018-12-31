@@ -365,6 +365,8 @@ class CreateGroup extends Component {
             .then(data => {
                 console.log("Users added successfully! " + data);
             });
+
+        this.props.history.push('/groups');
     };
 
     render() {
