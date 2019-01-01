@@ -40,7 +40,7 @@ class AppNavbar extends Component {
             imagePath = this.props.currentUser.imageBase64;
         }
 
-        return <Navbar expand="md">
+        return <Navbar expand="md" light>
             <NavbarBrand tag={Link} to="/">
                 <img src={logo} height="50" alt="LikeMinded logo" />
             </NavbarBrand>

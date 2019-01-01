@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import people_image from '../../resources/boardgameintroimg.png';
 import logo_and_slogan from '../../resources/LogoandSlogan.png';
 import blog_spirit_island from '../../resources/spiritisland.png';
+import classes from './Home.module.css';
 import BodyBackgroundColor from 'react-body-backgroundcolor';
 import {
     CarouselItem,
@@ -87,7 +88,7 @@ class Home extends Component {
                                 <h1 className="my-4" color="#9c3159">Tere tulemast!</h1>
                                 <img src={people_image} width="254" alt="People playing boardgames" />
                                 <p/>
-                                <div>
+                                <div className={classes.Paragraph}>
                                     "Tabletop" mängud ehk lauapealsed mängud hõlmavad endas igasugu mänge, mida tüüpiliselt mängitakse mitmekesi laua ümber.
                                     <p/>
                                     Antud veebilehel on võimalik leida erinevaid "tabletop" temaatilisi üritusi, korraldada nii ühekordseid kui ka korduvaid üritusi, leida mängukaaslasi ning moodustada gruppe.
