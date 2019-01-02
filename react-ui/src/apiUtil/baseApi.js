@@ -1,6 +1,11 @@
-import {API_BASE_URL_DEVELOPMENT, API_BASE_URL_PRODUCTION, ACCESS_TOKEN} from '../constants';
+import {ACCESS_TOKEN} from '../constants';
 
-const API_URL = API_BASE_URL_DEVELOPMENT;
+let API_URL = null;
+if (process.env.NODE_ENV !== 'production') {
+    API_URL = 'http://localhost:8080';
+} else {
+    API_URL = 'https://likeminded-server.herokuapp.com';
+}
 
 const request = (options) => {
     const headers = new Headers({
@@ -24,13 +29,6 @@ const request = (options) => {
             })
         );
 };
-
-// export function getEvents() {
-//     return request({
-//         url: API_URL + "/api/v1/events",
-//         method: 'GET'
-//     });
-// }
 
 export function apiRequest(method, url) {
     return request({
