@@ -1,10 +1,10 @@
-import {ACCESS_TOKEN} from '../constants';
+import {API_BASE_URL_DEVELOPMENT, API_BASE_URL_PRODUCTION, ACCESS_TOKEN} from "../constants";
 
 let API_URL = null;
 if (process.env.NODE_ENV !== 'production') {
-    API_URL = 'http://localhost:8080';
+    API_URL = API_BASE_URL_DEVELOPMENT;
 } else {
-    API_URL = 'https://likeminded-server.herokuapp.com';
+    API_URL = API_BASE_URL_PRODUCTION;
 }
 
 const request = (options) => {
