@@ -87,6 +87,7 @@ a.panel-link {
 }
 
 a.panel-link:hover {
+  cursor:pointer;
   color: #163f6a;
   text-decoration: none;
 }

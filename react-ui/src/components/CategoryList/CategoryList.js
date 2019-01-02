@@ -11,7 +11,7 @@ const categoryList = (props) => {
                                    key={option.option}
                                    className={option.option===props.selectedOption.option?"groupitem":""}
                                    onClick={(e) => props.onOptionClick(option)}>
-                        <a href="/" className={option.option===props.selectedOption.option?"groupitem":"panel-link"}>{option.title}</a>
+                        <div className={option.option===props.selectedOption.option?"groupitem":"panel-link"}>{option.title}</div>
                     </ListGroupItem>
                 ))}
             </ListGroup>
