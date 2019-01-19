@@ -4,6 +4,7 @@ import {getCurrentUser} from "../apiUtil/index";
 import {ACCESS_TOKEN} from '../constants/index';
 import Routes from "../components/Routes";
 import AppNavbar from './AppNavbar/AppNavbar';
+import UnderConstructionModal from './../components/Navigation/UnderConstructionModal/UnderConstructionModal';
 import {withRouter} from 'react-router-dom';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from 'material-ui-pickers';
@@ -17,7 +18,8 @@ class App extends Component {
             currentUser: null,
             isAuthenticated: false,
             isLoading: false,
-            onLogOut: null
+            onLogOut: null,
+            showConstructionModal: true
         };
     }
 
@@ -76,6 +78,7 @@ class App extends Component {
         return (
             <div className="App">
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <UnderConstructionModal />
                     <AppNavbar isAuthenticated={childProps.isAuthenticated} currentUser={childProps.currentUser} onLogOut={childProps.onLogOut}/>
                     <Routes childProps={childProps} />
                 </MuiPickersUtilsProvider>
